@@ -4,26 +4,55 @@
 <title>Matchday Forecast</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;650;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('matchday_theme');
+if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);
+}catch(e){}})();</script>
 <style>
 :root{
-  --bg:#0d1411; --panel:#141d18; --panel-2:#1b2821; --panel-3:#1f2e26;
-  --line:#26352c; --ink:#eaf2ec; --muted:#8aa094; --faint:#5f7268;
-  --home:#3ddc84; --draw:#d9b24a; --away:#4a9bdc;
-  --win:#3ddc84; --loss:#e0607a;
   --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --bg:#0d1411;--panel:#141d18;--panel-2:#1b2821;--panel-3:#1f2e26;--panel-3-border:#2c4535;--line:#26352c;--ink:#eaf2ec;--muted:#8aa094;--faint:#5f7268;--home:#3ddc84;--draw:#d9b24a;--away:#4a9bdc;--win:#3ddc84;--loss:#e0607a;--draw-pill:#7d8c84;--on-home:#07140d;--on-draw:#07140d;--on-away:#07151f;--on-loss:#1a0509;--on-draw-pill:#0d1411;--tint-win:rgba(61,220,132,.16);--tint-win-strong:rgba(61,220,132,.28);--tint-away:rgba(74,155,220,.16);--tint-draw:rgba(217,178,74,.16);--draw-border-muted:#3a3220;--shadow-floating:rgba(0,0,0,.5);--shadow-section:rgba(0,0,0,.35);--crest-bg:#ffffff
 }
+@media (prefers-color-scheme: light){
+  :root:not([data-theme]){ --bg:#f3f5f0;--panel:#ffffff;--panel-2:#eef1ea;--panel-3:#e4ece3;--panel-3-border:#c3d6c0;--line:#dbe2d6;--ink:#16201a;--muted:#51604c;--faint:#7c8a76;--home:#1f9d57;--draw:#ad7c1f;--away:#1f6fb0;--win:#1f9d57;--loss:#c73a57;--draw-pill:#7c8a76;--on-home:#ffffff;--on-draw:#ffffff;--on-away:#ffffff;--on-loss:#ffffff;--on-draw-pill:#ffffff;--tint-win:rgba(31,157,87,.14);--tint-win-strong:rgba(31,157,87,.22);--tint-away:rgba(31,111,176,.14);--tint-draw:rgba(173,124,31,.14);--draw-border-muted:#cbb77e;--shadow-floating:rgba(60,70,55,.18);--shadow-section:rgba(60,70,55,.14);--crest-bg:#ffffff }
+}
+:root[data-theme="dark"]{ --bg:#0d1411;--panel:#141d18;--panel-2:#1b2821;--panel-3:#1f2e26;--panel-3-border:#2c4535;--line:#26352c;--ink:#eaf2ec;--muted:#8aa094;--faint:#5f7268;--home:#3ddc84;--draw:#d9b24a;--away:#4a9bdc;--win:#3ddc84;--loss:#e0607a;--draw-pill:#7d8c84;--on-home:#07140d;--on-draw:#07140d;--on-away:#07151f;--on-loss:#1a0509;--on-draw-pill:#0d1411;--tint-win:rgba(61,220,132,.16);--tint-win-strong:rgba(61,220,132,.28);--tint-away:rgba(74,155,220,.16);--tint-draw:rgba(217,178,74,.16);--draw-border-muted:#3a3220;--shadow-floating:rgba(0,0,0,.5);--shadow-section:rgba(0,0,0,.35);--crest-bg:#ffffff }
+:root[data-theme="light"]{ --bg:#f3f5f0;--panel:#ffffff;--panel-2:#eef1ea;--panel-3:#e4ece3;--panel-3-border:#c3d6c0;--line:#dbe2d6;--ink:#16201a;--muted:#51604c;--faint:#7c8a76;--home:#1f9d57;--draw:#ad7c1f;--away:#1f6fb0;--win:#1f9d57;--loss:#c73a57;--draw-pill:#7c8a76;--on-home:#ffffff;--on-draw:#ffffff;--on-away:#ffffff;--on-loss:#ffffff;--on-draw-pill:#ffffff;--tint-win:rgba(31,157,87,.14);--tint-win-strong:rgba(31,157,87,.22);--tint-away:rgba(31,111,176,.14);--tint-draw:rgba(173,124,31,.14);--draw-border-muted:#cbb77e;--shadow-floating:rgba(60,70,55,.18);--shadow-section:rgba(60,70,55,.14);--crest-bg:#ffffff }
+
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none !important}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);
   line-height:1.5;-webkit-font-smoothing:antialiased;padding:0 0 80px}
 .wrap{max-width:780px;margin:0 auto;padding:0 20px}
 
+/* Team/league crests get a light backdrop — some (e.g. Premier League,
+   Champions League) are dark line-art that's nearly invisible on a dark
+   background otherwise. Team crests sit on a circle; league/competition
+   crests sit on an oval (wider horizontal padding on a round-corner box
+   naturally renders as an ellipse) so the two are never visually confused. */
+.team img,.formcol .side-logo,.opp img,.h2h-row img,.bm-card img,
+.league-table .team-cell img,.h2h-stats-key img{
+  background:var(--crest-bg);border-radius:50%;padding:2px;
+  box-sizing:content-box}
+.pill img,.league-head img{
+  background:var(--crest-bg);border-radius:50%;padding:3px 10px;
+  box-sizing:content-box}
+
 header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .title{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.02em}
 .title .accent{color:var(--home)}
 .sub{color:var(--muted);margin-top:8px;font-size:15px}
 .meta{color:var(--faint);font-size:13px;margin-top:14px;font-family:var(--mono)}
+
+.theme-toggle{display:flex;gap:3px;background:var(--panel);
+  border:1px solid var(--line);border-radius:999px;padding:3px;flex:0 0 auto;
+  margin-top:6px}
+.theme-btn{background:none;border:none;color:var(--faint);font-size:14px;
+  width:28px;height:28px;border-radius:999px;cursor:pointer;line-height:1;
+  display:flex;align-items:center;justify-content:center}
+.theme-btn:hover{color:var(--ink)}
+.theme-btn.on{background:var(--panel-2);color:var(--home)}
 
 /* top league reference nav */
 .leaguenav{display:flex;gap:10px;overflow-x:auto;padding:16px 0 4px;
@@ -35,14 +64,14 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
   font-weight:600;transition:border-color .15s,color .15s}
 .pill:hover{border-color:var(--home);color:var(--ink)}
 .pill img{width:22px;height:22px;object-fit:contain}
-.pill.bm-pill{color:var(--draw);border-color:#3a3220}
+.pill.bm-pill{color:var(--draw);border-color:var(--draw-border-muted)}
 .pill.bm-pill:hover{border-color:var(--draw);color:var(--draw)}
 
 /* bookmarks section */
 .bookmarks-section{margin:28px 0 36px;padding:20px 20px 6px;
-  background:var(--panel-3);border:1px solid #2c4535;border-radius:16px}
-.bookmarks-section h2{font-size:14px;color:var(--draw);letter-spacing:.02em;
-  margin-bottom:12px}
+  background:var(--panel-3);border:1px solid var(--panel-3-border);border-radius:16px}
+.bm-head{background:var(--panel-3);border-bottom-color:var(--panel-3-border);margin-bottom:12px}
+.bm-head h2{font-size:14px;color:var(--draw);letter-spacing:.02em}
 .bm-group{margin-bottom:18px}
 .bm-group h3{font-size:11px;color:var(--faint);font-family:var(--mono);
   text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
@@ -57,29 +86,39 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .bm-kick{font-size:10px;color:var(--faint);font-family:var(--mono)}
 
 /* league sections — strong visual separation */
-.league-section{margin:30px 0;padding:18px 18px 6px;
-  background:var(--panel-2);border:1px solid var(--line);border-radius:18px}
-.league-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.league-head img{width:32px;height:32px;object-fit:contain}
+.league-section{margin:56px 0;padding:18px 18px 6px;
+  background:var(--panel-2);border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 6px 24px var(--shadow-section)}
+/* .section-head: shared sticky bar used by every page section (league
+   sections, Bookmarks, and any section added later) — title/icon on the
+   left, fixture count, then table-toggles (if any) and prev/next section
+   links pinned to the right, nav links always rightmost. */
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;
+  position:sticky;top:0;z-index:5;padding:10px 0;border-bottom:1px solid var(--line)}
+.league-head{background:var(--panel-2)}
+.league-head img{width:44px;height:44px;object-fit:contain}
 .league-head h2{font-size:16px;font-weight:700;color:var(--ink)}
-.league-head .count{margin-left:auto;font-family:var(--mono);font-size:12px;
-  color:var(--faint)}
+.section-head .count{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.head-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.table-toggles{display:flex;gap:8px}
+.section-nav{display:flex;gap:8px}
+.sec-nav-link{display:flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:999px;background:var(--panel);
+  border:1px solid var(--line);color:var(--muted);text-decoration:none;
+  font-size:16px;flex:0 0 auto}
+.sec-nav-link:hover{border-color:var(--home);color:var(--ink)}
+.sec-nav-link.disabled{opacity:.35;pointer-events:none}
 .table-toggle{background:var(--panel);border:1px solid var(--line);
   border-radius:999px;color:var(--muted);font-size:12px;font-weight:600;
   padding:5px 12px;cursor:pointer;font-family:inherit;display:flex;
   align-items:center;gap:6px}
 .table-toggle:hover,.table-toggle.on{border-color:var(--home);color:var(--ink)}
 .table-toggle svg,.tbl-btn svg{display:block}
-.league-table-slot:empty{display:none}
-.league-table-slot{margin-bottom:16px;display:flex;gap:16px;
-  align-items:flex-start;overflow-x:auto}
-.league-table-wrap[data-kind="prev"]{order:2}
-.league-table-wrap[data-kind="cur"]{order:1}
 
 /* standings table */
 .league-table-wrap{border:1px solid var(--line);border-radius:10px;
   background:var(--panel)}
-.league-table-wrap.floating{box-shadow:0 14px 36px rgba(0,0,0,.5);z-index:20}
+.league-table-wrap.floating{box-shadow:0 14px 36px var(--shadow-floating);z-index:20}
 .league-table-caption{padding:8px 10px 0;font-family:var(--mono);
   font-size:10px;color:var(--faint);text-transform:uppercase;
   letter-spacing:.04em}
@@ -98,8 +137,8 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .league-table .team-cell span{overflow:hidden;text-overflow:ellipsis;
   white-space:nowrap;max-width:118px}
 .league-table .pts{font-weight:700;color:var(--ink)}
-.league-table tr.hl-home{background:rgba(61,220,132,.16)}
-.league-table tr.hl-away{background:rgba(74,155,220,.16)}
+.league-table tr.hl-home{background:var(--tint-win)}
+.league-table tr.hl-away{background:var(--tint-away)}
 .league-table .grp-row td{background:var(--panel-2);color:var(--faint);
   text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
 #table-garage{display:none}
@@ -132,11 +171,11 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .prob{margin:18px 0 6px}
 .bar{display:flex;height:34px;border-radius:8px;overflow:hidden;
   font-size:15px;font-weight:700;font-family:var(--mono)}
-.seg{display:flex;align-items:center;justify-content:center;color:#07140d;
+.seg{display:flex;align-items:center;justify-content:center;color:var(--on-home);
   min-width:30px;transition:none}
 .seg.h{background:var(--home)}
 .seg.d{background:var(--draw)}
-.seg.a{background:var(--away);color:#07151f}
+.seg.a{background:var(--away);color:var(--on-away)}
 .prob-key{display:flex;justify-content:space-between;margin-top:7px;
   font-size:11px;color:var(--faint);font-family:var(--mono)}
 
@@ -180,11 +219,11 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .opp img{width:25px;height:25px;object-fit:contain;flex:0 0 auto}
 .opp-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:92px}
 .pill-score{position:relative;font-family:var(--mono);font-weight:700;
-  font-size:14px;color:#07140d;padding:5px 10px;border-radius:7px;
+  font-size:14px;color:var(--on-home);padding:5px 10px;border-radius:7px;
   flex:0 0 auto}
 .pill-score.win{background:var(--win)}
-.pill-score.loss{background:var(--loss);color:#1a0509}
-.pill-score.draw{background:#7d8c84;color:#0d1411}
+.pill-score.loss{background:var(--loss);color:var(--on-loss)}
+.pill-score.draw{background:var(--draw-pill);color:var(--on-draw-pill)}
 .pill-score.latest:after{content:"";position:absolute;left:18%;right:18%;
   bottom:-5px;height:2px;background:currentColor;opacity:.55;border-radius:2px}
 
@@ -208,9 +247,9 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .h2h-bar{display:flex;height:28px;border-radius:7px;overflow:hidden;
   font-family:var(--mono);font-size:14px;font-weight:700}
 .h2h-seg{display:flex;align-items:center;justify-content:center}
-.h2h-seg.h{background:var(--home);color:#07140d}
-.h2h-seg.d{background:var(--draw);color:#241b04}
-.h2h-seg.a{background:var(--away);color:#07151f}
+.h2h-seg.h{background:var(--home);color:var(--on-home)}
+.h2h-seg.d{background:var(--draw);color:var(--on-draw)}
+.h2h-seg.a{background:var(--away);color:var(--on-away)}
 .h2h-stats-key{display:flex;justify-content:space-between;align-items:center;
   margin-top:6px}
 .h2h-stats-key img{width:20px;height:20px;object-fit:contain}
@@ -223,9 +262,9 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .h2h-row{display:flex;align-items:center;justify-content:center;gap:12px;
   background:var(--panel-2);border:1px solid var(--line);border-radius:9px;
   padding:7px 10px}
-.h2h-row.draw{background:rgba(217,178,74,.16);border-color:var(--draw)}
+.h2h-row.draw{background:var(--tint-draw);border-color:var(--draw)}
 .h2h-side{display:flex;align-items:center;padding:4px 8px;border-radius:7px}
-.h2h-side.h2h-win{background:rgba(61,220,132,.28)}
+.h2h-side.h2h-win{background:var(--tint-win-strong)}
 .h2h-row img{width:27px;height:27px;object-fit:contain}
 .h2h-row .h2h-score{font-family:var(--mono);font-size:15px;font-weight:700;
   min-width:64px;text-align:center}
@@ -242,14 +281,30 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </style></head>
 <body><div class="wrap">
 <header class="top">
-  <div class="title">Matchday <span class="accent">Forecast</span></div>
+  <div class="top-row">
+    <div class="title">Matchday <span class="accent">Forecast</span></div>
+    <div class="theme-toggle" role="group" aria-label="Theme">
+      <button class="theme-btn" data-theme-choice="light" aria-label="Light theme" title="Light">☀</button>
+      <button class="theme-btn" data-theme-choice="dark" aria-label="Dark theme" title="Dark">☾</button>
+      <button class="theme-btn" data-theme-choice="auto" aria-label="Automatic theme" title="Match system">◐</button>
+    </div>
+  </div>
   <div class="sub">Model-based previews for the next few days across Europe's major competitions.</div>
-  <div class="meta">42 fixtures · generated <span id="gen-time" data-utc="2026-10-18T10:03:28.228122+00:00">Sunday 18 October 2026, 10:03 UTC</span></div>
+  <div class="meta">42 fixtures · generated <span id="gen-time" data-utc="2026-10-18T10:48:12.290498+00:00">Sunday 18 October 2026, 10:48 UTC</span></div>
   <nav class="leaguenav"><a href="#bookmarks" id="bm-pill" class="pill bm-pill" hidden>★ Bookmarks</a><a href="#PL" class="pill" title="Premier League"><img src="https://crests.football-data.org/PL.png" alt=""></a><a href="#PD" class="pill" title="La Liga"><img src="https://crests.football-data.org/laliga.png" alt=""></a><a href="#SA" class="pill" title="Serie A"><img src="https://crests.football-data.org/c111.png" alt=""></a><a href="#BL1" class="pill" title="Bundesliga"><img src="https://crests.football-data.org/BL1.png" alt=""></a><a href="#FL1" class="pill" title="Ligue 1"><img src="https://crests.football-data.org/FL1.png" alt=""></a><a href="#CL" class="pill" title="UEFA Champions League"><img src="https://crests.football-data.org/CL.png" alt=""></a></nav>
 </header>
 
-<section id="bookmarks" class="bookmarks-section" hidden>
-  <h2>★ Bookmarks</h2>
+<section id="bookmarks" class="bookmarks-section page-section" hidden>
+  <div class="section-head bm-head">
+    <h2>★ Bookmarks</h2>
+    <span class="count" id="bm-count"></span>
+    <div class="head-actions">
+      <span class="section-nav">
+        <a href="#" class="sec-nav-link sec-nav-prev" aria-label="previous section" title="Previous section">‹</a>
+        <a href="#" class="sec-nav-link sec-nav-next" aria-label="next section" title="Next section">›</a>
+      </span>
+    </div>
+  </div>
   <div class="bm-group" id="bm-upcoming-wrap">
     <h3>Upcoming</h3>
     <div class="bm-list" id="bm-upcoming"></div>
@@ -261,20 +316,25 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </section>
 
 
-<section class="league-section" id="PL">
-  <div class="league-head"><img src="https://crests.football-data.org/PL.png" alt=""><h2>Premier League</h2>
-    <button class="table-toggle" data-league="PL" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="PL" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button>
+<section class="league-section page-section" id="PL">
+  <div class="section-head league-head"><img src="https://crests.football-data.org/PL.png" alt=""><h2>Premier League</h2>
     <span class="count">5 fixtures</span>
+    <div class="head-actions">
+      <span class="table-toggles"><button class="table-toggle" data-league="PL" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="PL" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button></span>
+      <span class="section-nav">
+        <a href="#" class="sec-nav-link sec-nav-prev" aria-label="previous section" title="Previous section">‹</a>
+        <a href="#" class="sec-nav-link sec-nav-next" aria-label="next section" title="Next section">›</a>
+      </span>
+    </div>
   </div>
-  <div class="league-table-slot" id="slot-PL-header"></div>
   
 <article class="match" data-id="560604" data-status="NS" data-snapshot="{&quot;id&quot;: 560604, &quot;home&quot;: &quot;AFC Bournemouth&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/bournemouth.png&quot;, &quot;away&quot;: &quot;Sunderland AFC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/71.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;AFC Bournemouth win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="1044" data-away-id="71"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PL" data-kind="cur"
         data-home-id="1044" data-away-id="71"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -311,7 +371,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">AFC Bournemouth win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa552">42% confidence</span>
+    <span class="conf" data-confidence="42">42% confidence</span>
   </div>
 
   <details class="detail">
@@ -393,9 +453,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="341" data-away-id="66"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PL" data-kind="cur"
         data-home-id="341" data-away-id="66"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -432,7 +492,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Leeds United FC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa353">41% confidence</span>
+    <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
   <details class="detail">
@@ -514,9 +574,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="397" data-away-id="354"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PL" data-kind="cur"
         data-home-id="397" data-away-id="354"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -553,7 +613,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Brighton &amp; Hove Albion FC win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#b4bc58">62% confidence</span>
+    <span class="conf" data-confidence="62">62% confidence</span>
   </div>
 
   <details class="detail">
@@ -635,9 +695,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T15:30:00+00:00">Sun 18 Oct · 15:30 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="351" data-away-id="57"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PL" data-kind="cur"
         data-home-id="351" data-away-id="57"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -674,7 +734,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Arsenal FC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#d9b14b">49% confidence</span>
+    <span class="conf" data-confidence="49">49% confidence</span>
   </div>
 
   <details class="detail">
@@ -756,9 +816,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-19T19:00:00+00:00">Mon 19 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="73" data-away-id="1076"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PL" data-kind="cur"
         data-home-id="73" data-away-id="1076"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -795,7 +855,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Tottenham Hotspur FC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa651">43% confidence</span>
+    <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
   <details class="detail">
@@ -875,20 +935,25 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section" id="PD">
-  <div class="league-head"><img src="https://crests.football-data.org/laliga.png" alt=""><h2>La Liga</h2>
-    <button class="table-toggle" data-league="PD" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="PD" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button>
+<section class="league-section page-section" id="PD">
+  <div class="section-head league-head"><img src="https://crests.football-data.org/laliga.png" alt=""><h2>La Liga</h2>
     <span class="count">6 fixtures</span>
+    <div class="head-actions">
+      <span class="table-toggles"><button class="table-toggle" data-league="PD" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="PD" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button></span>
+      <span class="section-nav">
+        <a href="#" class="sec-nav-link sec-nav-prev" aria-label="previous section" title="Previous section">‹</a>
+        <a href="#" class="sec-nav-link sec-nav-next" aria-label="next section" title="Next section">›</a>
+      </span>
+    </div>
   </div>
-  <div class="league-table-slot" id="slot-PD-header"></div>
   
 <article class="match" data-id="564715" data-status="NS" data-snapshot="{&quot;id&quot;: 564715, &quot;home&quot;: &quot;CA Osasuna&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/79.png&quot;, &quot;away&quot;: &quot;Real Racing Club de Santander&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5335.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T12:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;CA Osasuna win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T12:00:00+00:00">Sun 18 Oct · 12:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PD" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="79" data-away-id="5335"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PD" data-kind="cur"
         data-home-id="79" data-away-id="5335"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -925,7 +990,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">CA Osasuna win</span>
     <span class="score-pred">likely 2–2</span>
-    <span class="conf" style="color:#daa651">43% confidence</span>
+    <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
   <details class="detail">
@@ -1007,9 +1072,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T14:15:00+00:00">Sun 18 Oct · 14:15 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PD" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="558" data-away-id="263"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PD" data-kind="cur"
         data-home-id="558" data-away-id="263"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1046,7 +1111,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">RC Celta de Vigo win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daab4e">46% confidence</span>
+    <span class="conf" data-confidence="46">46% confidence</span>
   </div>
 
   <details class="detail">
@@ -1128,9 +1193,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T16:30:00+00:00">Sun 18 Oct · 16:30 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PD" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="84" data-away-id="92"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PD" data-kind="cur"
         data-home-id="84" data-away-id="92"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1167,7 +1232,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Real Sociedad de Fútbol win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#db9e55">38% confidence</span>
+    <span class="conf" data-confidence="38">38% confidence</span>
   </div>
 
   <details class="detail">
@@ -1249,9 +1314,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T19:00:00+00:00">Sun 18 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PD" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="86" data-away-id="559"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PD" data-kind="cur"
         data-home-id="86" data-away-id="559"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1288,7 +1353,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Real Madrid CF win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#bdb954">59% confidence</span>
+    <span class="conf" data-confidence="59">59% confidence</span>
   </div>
 
   <details class="detail">
@@ -1370,9 +1435,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-19T19:00:00+00:00">Mon 19 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PD" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="82" data-away-id="87"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PD" data-kind="cur"
         data-home-id="82" data-away-id="87"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1409,7 +1474,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Getafe CF win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa253">40% confidence</span>
+    <span class="conf" data-confidence="40">40% confidence</span>
   </div>
 
   <details class="detail">
@@ -1491,9 +1556,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T18:00:00+00:00">Wed 21 Oct · 18:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="PD" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="88" data-away-id="77"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="PD" data-kind="cur"
         data-home-id="88" data-away-id="77"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1530,7 +1595,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Athletic Club win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#d9b14b">49% confidence</span>
+    <span class="conf" data-confidence="49">49% confidence</span>
   </div>
 
   <details class="detail">
@@ -1610,20 +1675,25 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section" id="SA">
-  <div class="league-head"><img src="https://crests.football-data.org/c111.png" alt=""><h2>Serie A</h2>
-    <button class="table-toggle" data-league="SA" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="SA" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button>
+<section class="league-section page-section" id="SA">
+  <div class="section-head league-head"><img src="https://crests.football-data.org/c111.png" alt=""><h2>Serie A</h2>
     <span class="count">6 fixtures</span>
+    <div class="head-actions">
+      <span class="table-toggles"><button class="table-toggle" data-league="SA" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="SA" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button></span>
+      <span class="section-nav">
+        <a href="#" class="sec-nav-link sec-nav-prev" aria-label="previous section" title="Previous section">‹</a>
+        <a href="#" class="sec-nav-link sec-nav-next" aria-label="next section" title="Next section">›</a>
+      </span>
+    </div>
   </div>
-  <div class="league-table-slot" id="slot-SA-header"></div>
   
 <article class="match" data-id="558574" data-status="NS" data-snapshot="{&quot;id&quot;: 558574, &quot;home&quot;: &quot;Udinese Calcio&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/115.png&quot;, &quot;away&quot;: &quot;US Lecce&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5890.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T10:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Udinese Calcio win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T10:30:00+00:00">Sun 18 Oct · 10:30 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="SA" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="115" data-away-id="5890"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="SA" data-kind="cur"
         data-home-id="115" data-away-id="5890"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1660,7 +1730,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Udinese Calcio win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#d4b34c">52% confidence</span>
+    <span class="conf" data-confidence="52">52% confidence</span>
   </div>
 
   <details class="detail">
@@ -1742,9 +1812,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="SA" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="99" data-away-id="7397"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="SA" data-kind="cur"
         data-home-id="99" data-away-id="7397"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1781,7 +1851,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Como 1907 win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa751">43% confidence</span>
+    <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
   <details class="detail">
@@ -1863,9 +1933,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T16:00:00+00:00">Sun 18 Oct · 16:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="SA" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="98" data-away-id="102"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="SA" data-kind="cur"
         data-home-id="98" data-away-id="102"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -1902,7 +1972,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">AC Milan win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#d7b34b">51% confidence</span>
+    <span class="conf" data-confidence="51">51% confidence</span>
   </div>
 
   <details class="detail">
@@ -1984,9 +2054,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T18:45:00+00:00">Sun 18 Oct · 18:45 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="SA" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="109" data-away-id="110"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="SA" data-kind="cur"
         data-home-id="109" data-away-id="110"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2023,7 +2093,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Juventus FC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#db9e56">38% confidence</span>
+    <span class="conf" data-confidence="38">38% confidence</span>
   </div>
 
   <details class="detail">
@@ -2105,9 +2175,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-19T16:30:00+00:00">Mon 19 Oct · 16:30 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="SA" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="5911" data-away-id="104"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="SA" data-kind="cur"
         data-home-id="5911" data-away-id="104"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2144,7 +2214,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Cagliari Calcio win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daac4d">46% confidence</span>
+    <span class="conf" data-confidence="46">46% confidence</span>
   </div>
 
   <details class="detail">
@@ -2226,9 +2296,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-19T18:45:00+00:00">Mon 19 Oct · 18:45 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="SA" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="112" data-away-id="586"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="SA" data-kind="cur"
         data-home-id="112" data-away-id="586"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2265,7 +2335,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Torino FC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa751">43% confidence</span>
+    <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
   <details class="detail">
@@ -2345,20 +2415,25 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section" id="BL1">
-  <div class="league-head"><img src="https://crests.football-data.org/BL1.png" alt=""><h2>Bundesliga</h2>
-    <button class="table-toggle" data-league="BL1" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="BL1" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button>
+<section class="league-section page-section" id="BL1">
+  <div class="section-head league-head"><img src="https://crests.football-data.org/BL1.png" alt=""><h2>Bundesliga</h2>
     <span class="count">2 fixtures</span>
+    <div class="head-actions">
+      <span class="table-toggles"><button class="table-toggle" data-league="BL1" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="BL1" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button></span>
+      <span class="section-nav">
+        <a href="#" class="sec-nav-link sec-nav-prev" aria-label="previous section" title="Previous section">‹</a>
+        <a href="#" class="sec-nav-link sec-nav-next" aria-label="next section" title="Next section">›</a>
+      </span>
+    </div>
   </div>
-  <div class="league-table-slot" id="slot-BL1-header"></div>
   
 <article class="match" data-id="565827" data-status="NS" data-snapshot="{&quot;id&quot;: 565827, &quot;home&quot;: &quot;Bayer 04 Leverkusen&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/3.png&quot;, &quot;away&quot;: &quot;SC Freiburg&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/17.png&quot;, &quot;league&quot;: &quot;Bundesliga&quot;, &quot;leagueCode&quot;: &quot;BL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Bayer 04 Leverkusen win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T13:30:00+00:00">Sun 18 Oct · 13:30 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="BL1" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="BL1" data-kind="prev"
         data-home-id="3" data-away-id="17"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="BL1" data-kind="cur"
         data-home-id="3" data-away-id="17"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2395,7 +2470,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Bayer 04 Leverkusen win</span>
     <span class="score-pred">likely 2–2</span>
-    <span class="conf" style="color:#daa750">44% confidence</span>
+    <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
   <details class="detail">
@@ -2477,9 +2552,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T15:30:00+00:00">Sun 18 Oct · 15:30 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="BL1" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="BL1" data-kind="prev"
         data-home-id="18" data-away-id="2"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="BL1" data-kind="cur"
         data-home-id="18" data-away-id="2"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2516,7 +2591,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">TSG 1899 Hoffenheim win</span>
     <span class="score-pred">likely 2–2</span>
-    <span class="conf" style="color:#daaa4f">45% confidence</span>
+    <span class="conf" data-confidence="45">45% confidence</span>
   </div>
 
   <details class="detail">
@@ -2596,20 +2671,25 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section" id="FL1">
-  <div class="league-head"><img src="https://crests.football-data.org/FL1.png" alt=""><h2>Ligue 1</h2>
-    <button class="table-toggle" data-league="FL1" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="FL1" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button>
+<section class="league-section page-section" id="FL1">
+  <div class="section-head league-head"><img src="https://crests.football-data.org/FL1.png" alt=""><h2>Ligue 1</h2>
     <span class="count">5 fixtures</span>
+    <div class="head-actions">
+      <span class="table-toggles"><button class="table-toggle" data-league="FL1" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="FL1" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button></span>
+      <span class="section-nav">
+        <a href="#" class="sec-nav-link sec-nav-prev" aria-label="previous section" title="Previous section">‹</a>
+        <a href="#" class="sec-nav-link sec-nav-next" aria-label="next section" title="Next section">›</a>
+      </span>
+    </div>
   </div>
-  <div class="league-table-slot" id="slot-FL1-header"></div>
   
 <article class="match" data-id="559664" data-status="NS" data-snapshot="{&quot;id&quot;: 559664, &quot;home&quot;: &quot;Angers SCO&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/532.png&quot;, &quot;away&quot;: &quot;Olympique de Marseille&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/516.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Olympique de Marseille win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="FL1" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="532" data-away-id="516"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="cur"
         data-home-id="532" data-away-id="516"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2646,7 +2726,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Olympique de Marseille win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa353">41% confidence</span>
+    <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
   <details class="detail">
@@ -2728,9 +2808,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="FL1" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="525" data-away-id="548"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="cur"
         data-home-id="525" data-away-id="548"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2767,7 +2847,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">AS Monaco FC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#db9e56">38% confidence</span>
+    <span class="conf" data-confidence="38">38% confidence</span>
   </div>
 
   <details class="detail">
@@ -2849,9 +2929,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="FL1" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="1045" data-away-id="529"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="cur"
         data-home-id="1045" data-away-id="529"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -2888,7 +2968,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Paris FC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa551">42% confidence</span>
+    <span class="conf" data-confidence="42">42% confidence</span>
   </div>
 
   <details class="detail">
@@ -2970,9 +3050,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="FL1" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="533" data-away-id="519"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="cur"
         data-home-id="533" data-away-id="519"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3009,7 +3089,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Le Havre AC win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#d1b44d">53% confidence</span>
+    <span class="conf" data-confidence="53">53% confidence</span>
   </div>
 
   <details class="detail">
@@ -3091,9 +3171,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-18T18:45:00+00:00">Sun 18 Oct · 18:45 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="FL1" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="523" data-away-id="522"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="cur"
         data-home-id="523" data-away-id="522"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3130,7 +3210,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Olympique Lyonnais win</span>
     <span class="score-pred">likely 1–0</span>
-    <span class="conf" style="color:#b2bc58">62% confidence</span>
+    <span class="conf" data-confidence="62">62% confidence</span>
   </div>
 
   <details class="detail">
@@ -3210,20 +3290,25 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section" id="CL">
-  <div class="league-head"><img src="https://crests.football-data.org/CL.png" alt=""><h2>UEFA Champions League</h2>
-    <button class="table-toggle" data-league="CL" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="CL" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button>
+<section class="league-section page-section" id="CL">
+  <div class="section-head league-head"><img src="https://crests.football-data.org/CL.png" alt=""><h2>UEFA Champions League</h2>
     <span class="count">18 fixtures</span>
+    <div class="head-actions">
+      <span class="table-toggles"><button class="table-toggle" data-league="CL" data-kind="prev"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2025-26</button><button class="table-toggle" data-league="CL" data-kind="cur"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg> 2026-27</button></span>
+      <span class="section-nav">
+        <a href="#" class="sec-nav-link sec-nav-prev" aria-label="previous section" title="Previous section">‹</a>
+        <a href="#" class="sec-nav-link sec-nav-next" aria-label="next section" title="Next section">›</a>
+      </span>
+    </div>
   </div>
-  <div class="league-table-slot" id="slot-CL-header"></div>
   
 <article class="match" data-id="575359" data-status="NS" data-snapshot="{&quot;id&quot;: 575359, &quot;home&quot;: &quot;Sabah FK&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/10233.png&quot;, &quot;away&quot;: &quot;Borussia Dortmund&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/4.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T16:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Borussia Dortmund win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T16:45:00+00:00">Tue 20 Oct · 16:45 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="10233" data-away-id="4"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="10233" data-away-id="4"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3260,7 +3345,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Borussia Dortmund win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa850">44% confidence</span>
+    <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
   <details class="detail">
@@ -3342,9 +3427,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T16:45:00+00:00">Tue 20 Oct · 16:45 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="613" data-away-id="930"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="613" data-away-id="930"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3381,7 +3466,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">SK Slavia Praha win</span>
     <span class="score-pred">likely 1–2</span>
-    <span class="conf" style="color:#daac4e">46% confidence</span>
+    <span class="conf" data-confidence="46">46% confidence</span>
   </div>
 
   <details class="detail">
@@ -3463,9 +3548,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="65" data-away-id="1899"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="65" data-away-id="1899"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3502,7 +3587,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Manchester City FC win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#d0b44d">53% confidence</span>
+    <span class="conf" data-confidence="53">53% confidence</span>
   </div>
 
   <details class="detail">
@@ -3584,9 +3669,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="10" data-away-id="78"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="10" data-away-id="78"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3623,7 +3708,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">VfB Stuttgart win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa850">44% confidence</span>
+    <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
   <details class="detail">
@@ -3705,9 +3790,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="64" data-away-id="94"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="64" data-away-id="94"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3744,7 +3829,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Liverpool FC win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#d1b44d">53% confidence</span>
+    <span class="conf" data-confidence="53">53% confidence</span>
   </div>
 
   <details class="detail">
@@ -3826,9 +3911,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="100" data-away-id="7509"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="100" data-away-id="7509"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3865,7 +3950,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">AS Roma win</span>
     <span class="score-pred">likely 3–1</span>
-    <span class="conf" style="color:#8dc666">74% confidence</span>
+    <span class="conf" data-confidence="74">74% confidence</span>
   </div>
 
   <details class="detail">
@@ -3947,9 +4032,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="503" data-away-id="674"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="503" data-away-id="674"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -3986,7 +4071,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">FC Porto win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa353">41% confidence</span>
+    <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
   <details class="detail">
@@ -4068,9 +4153,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="113" data-away-id="5721"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="113" data-away-id="5721"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4107,7 +4192,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">SSC Napoli win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#c4b852">57% confidence</span>
+    <span class="conf" data-confidence="57">57% confidence</span>
   </div>
 
   <details class="detail">
@@ -4189,9 +4274,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="524" data-away-id="81"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="524" data-away-id="81"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4228,7 +4313,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Paris Saint-Germain FC win</span>
     <span class="score-pred">likely 2–2</span>
-    <span class="conf" style="color:#daa651">43% confidence</span>
+    <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
   <details class="detail">
@@ -4310,9 +4395,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T16:45:00+00:00">Wed 21 Oct · 16:45 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="7397" data-away-id="66"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="7397" data-away-id="66"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4349,7 +4434,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Como 1907 win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa850">44% confidence</span>
+    <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
   <details class="detail">
@@ -4431,9 +4516,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T16:45:00+00:00">Wed 21 Oct · 16:45 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="521" data-away-id="610"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="521" data-away-id="610"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4470,7 +4555,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Lille OSC win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#c5b751">56% confidence</span>
+    <span class="conf" data-confidence="56">56% confidence</span>
   </div>
 
   <details class="detail">
@@ -4552,9 +4637,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="86" data-away-id="721"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="86" data-away-id="721"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4591,7 +4676,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Real Madrid CF win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#d0b54d">53% confidence</span>
+    <span class="conf" data-confidence="53">53% confidence</span>
   </div>
 
   <details class="detail">
@@ -4673,9 +4758,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="108" data-away-id="1887"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="108" data-away-id="1887"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4712,7 +4797,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">FC Internazionale Milano win</span>
     <span class="score-pred">likely 1–1</span>
-    <span class="conf" style="color:#daa154">40% confidence</span>
+    <span class="conf" data-confidence="40">40% confidence</span>
   </div>
 
   <details class="detail">
@@ -4794,9 +4879,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="5" data-away-id="57"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="5" data-away-id="57"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4833,7 +4918,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">FC Bayern München win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#d1b44d">53% confidence</span>
+    <span class="conf" data-confidence="53">53% confidence</span>
   </div>
 
   <details class="detail">
@@ -4915,9 +5000,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="851" data-away-id="546"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="851" data-away-id="546"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -4954,7 +5039,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Club Brugge KV win</span>
     <span class="score-pred">likely 2–2</span>
-    <span class="conf" style="color:#daac4e">46% confidence</span>
+    <span class="conf" data-confidence="46">46% confidence</span>
   </div>
 
   <details class="detail">
@@ -5036,9 +5121,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="58" data-away-id="5720"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="58" data-away-id="5720"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -5075,7 +5160,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Aston Villa FC win</span>
     <span class="score-pred">likely 3–1</span>
-    <span class="conf" style="color:#a1c15f">68% confidence</span>
+    <span class="conf" data-confidence="68">68% confidence</span>
   </div>
 
   <details class="detail">
@@ -5157,9 +5242,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="498" data-away-id="2016"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="498" data-away-id="2016"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -5196,7 +5281,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Sporting Clube de Portugal win</span>
     <span class="score-pred">likely 2–1</span>
-    <span class="conf" style="color:#97c462">71% confidence</span>
+    <span class="conf" data-confidence="71">71% confidence</span>
   </div>
 
   <details class="detail">
@@ -5278,9 +5363,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="match-top">
     <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
     <div class="match-top-right">
-      <button class="tbl-btn" data-league="CL" data-kind="prev"
+      <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="90" data-away-id="675"
-        aria-label="show 2025-26 table" title="2025-26 table"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="1" y1="6.5" x2="15" y2="6.5"/><line x1="6" y1="6.5" x2="6" y2="14"/><line x1="10.5" y1="6.5" x2="10.5" y2="14"/></svg></button>
+        aria-label="show 2025-26 table" title="2025-26 table">'25</button>
       <button class="tbl-btn year-btn" data-league="CL" data-kind="cur"
         data-home-id="90" data-away-id="675"
         aria-label="show 2026-27 live table" title="2026-27 table (live)">'26</button>
@@ -5317,7 +5402,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   <div class="verdict">
     <span class="pick">Real Betis Balompié win</span>
     <span class="score-pred">likely 2–2</span>
-    <span class="conf" style="color:#daa452">41% confidence</span>
+    <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
   <details class="detail">
@@ -5502,6 +5587,73 @@ Not betting advice. Updated daily.</footer>
   var FINISHED = {FT:1, AET:1, PEN:1};
   var PT_ZONE = 'America/Los_Angeles';
 
+  // ---- theme: light / dark / auto ----
+  var THEME_KEY = 'matchday_theme';
+
+  function hexToRgb(hex){
+    hex = hex.replace('#', '').trim();
+    if (hex.length === 3) hex = hex.split('').map(function(c){ return c + c; }).join('');
+    var n = parseInt(hex, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+
+  // Confidence score color (red -> yellow -> green) is computed from the
+  // ACTIVE theme's own loss/draw/win colors, not baked in at generation
+  // time, so it stays correct across live theme switches.
+  function applyConfidenceColors(){
+    var style = getComputedStyle(document.documentElement);
+    var stops = [
+      [0, hexToRgb(style.getPropertyValue('--loss'))],
+      [50, hexToRgb(style.getPropertyValue('--draw'))],
+      [100, hexToRgb(style.getPropertyValue('--win'))]
+    ];
+    document.querySelectorAll('.conf[data-confidence]').forEach(function(el){
+      var pct = Math.max(0, Math.min(100, parseFloat(el.getAttribute('data-confidence'))));
+      for (var i = 0; i < stops.length - 1; i++) {
+        var p0 = stops[i][0], c0 = stops[i][1], p1 = stops[i + 1][0], c1 = stops[i + 1][1];
+        if (pct >= p0 && pct <= p1) {
+          var t = (pct - p0) / (p1 - p0);
+          var r = Math.round(c0[0] + (c1[0] - c0[0]) * t);
+          var g = Math.round(c0[1] + (c1[1] - c0[1]) * t);
+          var b = Math.round(c0[2] + (c1[2] - c0[2]) * t);
+          el.style.color = 'rgb(' + r + ',' + g + ',' + b + ')';
+          break;
+        }
+      }
+    });
+  }
+
+  function applyTheme(choice){
+    if (choice === 'light' || choice === 'dark') {
+      document.documentElement.setAttribute('data-theme', choice);
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    document.querySelectorAll('.theme-btn').forEach(function(b){
+      b.classList.toggle('on', b.getAttribute('data-theme-choice') === choice);
+    });
+    applyConfidenceColors();
+  }
+
+  var savedTheme = (function(){
+    try { return localStorage.getItem(THEME_KEY) || 'auto'; } catch(e){ return 'auto'; }
+  })();
+  applyTheme(savedTheme);
+
+  document.querySelectorAll('.theme-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var choice = btn.getAttribute('data-theme-choice');
+      try { localStorage.setItem(THEME_KEY, choice); } catch(e){}
+      applyTheme(choice);
+    });
+  });
+
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(){
+      if (!document.documentElement.getAttribute('data-theme')) applyConfidenceColors();
+    });
+  }
+
   function load(){
     try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }
     catch(e){ return {}; }
@@ -5626,7 +5778,10 @@ Not betting advice. Updated daily.</footer>
     document.getElementById('bm-pill').hidden = !any;
     document.getElementById('bm-upcoming-wrap').hidden = upcomingEl.children.length === 0;
     document.getElementById('bm-previous-wrap').hidden = previousEl.children.length === 0;
+    document.getElementById('bm-count').textContent =
+      ids.length + ' fixture' + (ids.length !== 1 ? 's' : '');
     observeMatches();
+    updateSectionNav();
   }
 
   renderBookmarks();
@@ -5637,12 +5792,32 @@ Not betting advice. Updated daily.</footer>
   // toggle — opening a 'cur' table closes whichever 'cur' table was open
   // before, regardless of which match/league triggered it, and likewise for
   // 'prev' — but the two tracks don't affect each other, so both can be open
-  // at once. When both are floating beside the same match, 'cur' sits next
-  // to the card and 'prev' chains off cur's right edge (scroll to see it);
-  // if only one track is open, it floats directly beside the match either way.
+  // at once. Per-match buttons both float to the right (prev chains off
+  // cur's edge); league-bar buttons instead split left ('cur') / right
+  // ('prev') since they share no single anchor to chain against.
   var garage = document.getElementById('table-garage');
   var NARROW = 720;
-  var activeByKind = {cur: null, prev: null}; // {code, btn, mode, matchEl}
+  var activeByKind = {cur: null, prev: null}; // {code, btn, mode, anchorEl, side}
+
+  // Prev/next section nav: every .page-section (league sections, Bookmarks,
+  // and any section added later) gets links to jump to its neighbor among
+  // the currently VISIBLE sections — Bookmarks starts hidden until there's
+  // at least one bookmark, so this is recomputed whenever that changes.
+  function visibleSections(){
+    return Array.prototype.slice.call(document.querySelectorAll('.page-section'))
+      .filter(function(s){ return !s.hidden; });
+  }
+
+  function updateSectionNav(){
+    var all = visibleSections();
+    all.forEach(function(sec, i){
+      var prevLink = sec.querySelector('.sec-nav-prev');
+      var nextLink = sec.querySelector('.sec-nav-next');
+      if (prevLink) prevLink.classList.toggle('disabled', i === 0);
+      if (nextLink) nextLink.classList.toggle('disabled', i === all.length - 1);
+    });
+  }
+  updateSectionNav();
 
   function clearHighlight(tableWrap){
     tableWrap.querySelectorAll('.hl-home,.hl-away').forEach(function(r){
@@ -5659,27 +5834,44 @@ Not betting advice. Updated daily.</footer>
     tableWrap.style.marginTop = '';
   }
 
-  function positionFloating(tableWrap, matchEl){
+  // Per-match buttons float both kinds to the right (prev chains off cur's
+  // right edge if both are open). League-bar buttons instead split across
+  // the page: 'cur' floats in the left gutter, 'prev' in the right gutter —
+  // so they never need to chain off each other.
+  function positionFloatingRight(tableWrap, anchorEl){
     var wrapEl = document.querySelector('.wrap');
-    var mRect = matchEl.getBoundingClientRect();
+    var aRect = anchorEl.getBoundingClientRect();
     var wRect = wrapEl.getBoundingClientRect();
     var gap = 16;
     var avail = window.innerWidth - (wRect.right + window.scrollX) - gap - 12;
     var w = Math.max(260, Math.min(480, avail));
     tableWrap.style.position = 'absolute';
-    tableWrap.style.top = (mRect.top + window.scrollY) + 'px';
+    tableWrap.style.top = (aRect.top + window.scrollY) + 'px';
     tableWrap.style.left = (wRect.right + window.scrollX + gap) + 'px';
     tableWrap.style.width = w + 'px';
   }
 
-  function positionChained(tableWrap, matchEl, leftOfEl){
+  function positionFloatingLeft(tableWrap, anchorEl){
+    var wrapEl = document.querySelector('.wrap');
+    var aRect = anchorEl.getBoundingClientRect();
+    var wRect = wrapEl.getBoundingClientRect();
+    var gap = 16;
+    var avail = wRect.left + window.scrollX - gap - 12;
+    var w = Math.max(260, Math.min(480, avail));
+    tableWrap.style.position = 'absolute';
+    tableWrap.style.top = (aRect.top + window.scrollY) + 'px';
+    tableWrap.style.left = (wRect.left + window.scrollX - gap - w) + 'px';
+    tableWrap.style.width = w + 'px';
+  }
+
+  function positionChained(tableWrap, anchorEl, leftOfEl){
     var lRect = leftOfEl.getBoundingClientRect();
-    var mRect = matchEl.getBoundingClientRect();
+    var aRect = anchorEl.getBoundingClientRect();
     var gap = 16;
     var avail = window.innerWidth - (lRect.right + window.scrollX) - gap - 12;
     var w = Math.max(220, Math.min(480, avail));
     tableWrap.style.position = 'absolute';
-    tableWrap.style.top = (mRect.top + window.scrollY) + 'px';
+    tableWrap.style.top = (aRect.top + window.scrollY) + 'px';
     tableWrap.style.left = (lRect.right + window.scrollX + gap) + 'px';
     tableWrap.style.width = w + 'px';
   }
@@ -5689,11 +5881,28 @@ Not betting advice. Updated daily.</footer>
     if (!prevState || prevState.mode !== 'floating') return;
     var prevWrap = document.getElementById('table-' + prevState.code + '-prev');
     if (!prevWrap) return;
+    if (prevState.side === 'left') { positionFloatingLeft(prevWrap, prevState.anchorEl); return; }
     var curState = activeByKind.cur;
-    var curWrap = curState && curState.mode === 'floating'
+    var curWrap = curState && curState.mode === 'floating' && curState.side === 'right'
       ? document.getElementById('table-' + curState.code + '-cur') : null;
-    if (curWrap) positionChained(prevWrap, prevState.matchEl, curWrap);
-    else positionFloating(prevWrap, prevState.matchEl);
+    if (curWrap) positionChained(prevWrap, prevState.anchorEl, curWrap);
+    else positionFloatingRight(prevWrap, prevState.anchorEl);
+  }
+
+  // Identifies "the same target" across kinds: the anchor element (a match
+  // card, or a league header for bar-level buttons). Opening any table
+  // closes every other currently-open table (both kinds) unless it belongs
+  // to this same target — that's what lets cur+prev coexist for one
+  // match/league while still closing everything else.
+  function activeKey(state){
+    return state ? state.anchorEl : null;
+  }
+
+  function closeOthersFor(newKey){
+    ['cur', 'prev'].forEach(function(k){
+      var s = activeByKind[k];
+      if (s && activeKey(s) !== newKey) closeActive(k);
+    });
   }
 
   function closeActive(kind){
@@ -5710,47 +5919,40 @@ Not betting advice. Updated daily.</footer>
     if (kind === 'cur') repositionPrev();
   }
 
-  function openInline(kind, code, targetSlot, btn){
+  function openFloating(kind, code, anchorEl, btn, highlightIds, side){
+    side = side || 'right';
     var tableWrap = document.getElementById('table-' + code + '-' + kind);
-    if (!tableWrap || !targetSlot) return;
+    if (!tableWrap || !anchorEl) return;
+    var newKey = anchorEl;
     var state = activeByKind[kind];
     var reopening = state && state.code === code && state.btn === btn;
-    closeActive(kind);
-    if (reopening) return;
-    resetFloatStyles(tableWrap);
-    targetSlot.appendChild(tableWrap);
-    btn.classList.add('on');
-    activeByKind[kind] = {code: code, btn: btn, mode: 'inline', matchEl: null};
-    if (kind === 'cur') repositionPrev();
-  }
-
-  function openFloating(kind, code, matchEl, btn, highlightIds){
-    var tableWrap = document.getElementById('table-' + code + '-' + kind);
-    if (!tableWrap || !matchEl) return;
-    var state = activeByKind[kind];
-    var reopening = state && state.code === code && state.btn === btn;
+    closeOthersFor(newKey);
     closeActive(kind);
     if (reopening) return;
 
     tableWrap.classList.add('floating');
     if (window.innerWidth < NARROW) {
-      var afterEl = matchEl;
-      var curState = activeByKind.cur;
-      var curWrap = kind === 'prev' && curState
-        ? document.getElementById('table-' + curState.code + '-cur') : null;
-      if (curWrap && curWrap.style.position !== 'absolute') afterEl = curWrap;
+      var afterEl = anchorEl;
+      if (side === 'right') {
+        var curState = activeByKind.cur;
+        var curWrap = kind === 'prev' && curState && curState.side === 'right'
+          ? document.getElementById('table-' + curState.code + '-cur') : null;
+        if (curWrap && curWrap.style.position !== 'absolute') afterEl = curWrap;
+      }
       afterEl.insertAdjacentElement('afterend', tableWrap);
       tableWrap.style.marginTop = '14px';
     } else {
       document.body.appendChild(tableWrap);
-      if (kind === 'prev') {
+      if (side === 'left') {
+        positionFloatingLeft(tableWrap, anchorEl);
+      } else if (kind === 'prev') {
         var cs = activeByKind.cur;
-        var cw = cs && cs.mode === 'floating'
+        var cw = cs && cs.mode === 'floating' && cs.side === 'right'
           ? document.getElementById('table-' + cs.code + '-cur') : null;
-        if (cw) positionChained(tableWrap, matchEl, cw);
-        else positionFloating(tableWrap, matchEl);
+        if (cw) positionChained(tableWrap, anchorEl, cw);
+        else positionFloatingRight(tableWrap, anchorEl);
       } else {
-        positionFloating(tableWrap, matchEl);
+        positionFloatingRight(tableWrap, anchorEl);
       }
     }
     clearHighlight(tableWrap);
@@ -5761,7 +5963,7 @@ Not betting advice. Updated daily.</footer>
       if (arow) arow.classList.add('hl-away');
     }
     btn.classList.add('on');
-    activeByKind[kind] = {code: code, btn: btn, mode: 'floating', matchEl: matchEl};
+    activeByKind[kind] = {code: code, btn: btn, mode: 'floating', anchorEl: anchorEl, side: side};
     if (kind === 'cur') repositionPrev();
   }
 
@@ -5792,7 +5994,8 @@ Not betting advice. Updated daily.</footer>
     if (toggleBtn) {
       var tcode = toggleBtn.getAttribute('data-league');
       var tkind = toggleBtn.getAttribute('data-kind');
-      openInline(tkind, tcode, document.getElementById('slot-' + tcode + '-header'), toggleBtn);
+      var head = toggleBtn.closest('.league-head');
+      openFloating(tkind, tcode, head, toggleBtn, null, tkind === 'cur' ? 'left' : 'right');
       return;
     }
 
@@ -5802,7 +6005,19 @@ Not betting advice. Updated daily.</footer>
       var kind = tblBtn.getAttribute('data-kind');
       var hid = tblBtn.getAttribute('data-home-id');
       var aid = tblBtn.getAttribute('data-away-id');
-      openFloating(kind, code, tblBtn.closest('.match'), tblBtn, [hid, aid]);
+      openFloating(kind, code, tblBtn.closest('.match'), tblBtn, [hid, aid], 'right');
+      return;
+    }
+
+    var navLink = e.target.closest('.sec-nav-link');
+    if (navLink) {
+      e.preventDefault();
+      if (navLink.classList.contains('disabled')) return;
+      var all = visibleSections();
+      var sec = navLink.closest('.page-section');
+      var idx = all.indexOf(sec);
+      var target = navLink.classList.contains('sec-nav-prev') ? all[idx - 1] : all[idx + 1];
+      if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
     }
   });
 
@@ -5811,7 +6026,10 @@ Not betting advice. Updated daily.</footer>
     var curState = activeByKind.cur;
     if (curState && curState.mode === 'floating') {
       var curWrap = document.getElementById('table-' + curState.code + '-cur');
-      if (curWrap) positionFloating(curWrap, curState.matchEl);
+      if (curWrap) {
+        if (curState.side === 'left') positionFloatingLeft(curWrap, curState.anchorEl);
+        else positionFloatingRight(curWrap, curState.anchorEl);
+      }
     }
     repositionPrev();
   });
