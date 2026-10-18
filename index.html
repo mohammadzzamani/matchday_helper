@@ -11,13 +11,13 @@ if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)
 :root{
   --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,monospace;
-  --bg:#0d1411;--panel:#141d18;--panel-2:#1b2821;--panel-3:#1f2e26;--panel-3-border:#2c4535;--line:#26352c;--ink:#eaf2ec;--muted:#8aa094;--faint:#5f7268;--home:#3ddc84;--draw:#d9b24a;--away:#4a9bdc;--win:#3ddc84;--loss:#e0607a;--draw-pill:#7d8c84;--on-home:#07140d;--on-draw:#07140d;--on-away:#07151f;--on-loss:#1a0509;--on-draw-pill:#0d1411;--tint-win:rgba(61,220,132,.16);--tint-win-strong:rgba(61,220,132,.28);--tint-away:rgba(74,155,220,.16);--tint-draw:rgba(217,178,74,.16);--draw-border-muted:#3a3220;--shadow-floating:rgba(0,0,0,.5);--shadow-section:rgba(0,0,0,.35);--crest-bg:#ffffff
+  --bg:#0d1411;--panel:#141d18;--panel-2:#1b2821;--panel-3:#1f2e26;--panel-3-border:#2c4535;--line:#26352c;--ink:#eaf2ec;--muted:#8aa094;--faint:#5f7268;--home:#3ddc84;--draw:#d9b24a;--away:#4a9bdc;--win:#3ddc84;--loss:#e0607a;--draw-pill:#7d8c84;--on-home:#07140d;--on-draw:#07140d;--on-away:#07151f;--on-loss:#1a0509;--on-draw-pill:#0d1411;--tint-win:rgba(61,220,132,.16);--tint-win-strong:rgba(61,220,132,.28);--tint-away:rgba(74,155,220,.16);--tint-draw:rgba(217,178,74,.16);--draw-border-muted:#3a3220;--shadow-floating:rgba(0,0,0,.5);--shadow-section:rgba(0,0,0,.35);--lg-alpha:.42;--nav-active-bg:.6;--nav-active-ring:.45;--finished-bg:#242724;--crest-bg:#ffffff
 }
 @media (prefers-color-scheme: light){
-  :root:not([data-theme]){ --bg:#f3f5f0;--panel:#ffffff;--panel-2:#eef1ea;--panel-3:#e4ece3;--panel-3-border:#c3d6c0;--line:#dbe2d6;--ink:#16201a;--muted:#51604c;--faint:#7c8a76;--home:#1f9d57;--draw:#ad7c1f;--away:#1f6fb0;--win:#1f9d57;--loss:#c73a57;--draw-pill:#7c8a76;--on-home:#ffffff;--on-draw:#ffffff;--on-away:#ffffff;--on-loss:#ffffff;--on-draw-pill:#ffffff;--tint-win:rgba(31,157,87,.14);--tint-win-strong:rgba(31,157,87,.22);--tint-away:rgba(31,111,176,.14);--tint-draw:rgba(173,124,31,.14);--draw-border-muted:#cbb77e;--shadow-floating:rgba(60,70,55,.18);--shadow-section:rgba(60,70,55,.14);--crest-bg:#ffffff }
+  :root:not([data-theme]){ --bg:#f3f5f0;--panel:#ffffff;--panel-2:#eef1ea;--panel-3:#e4ece3;--panel-3-border:#c3d6c0;--line:#dbe2d6;--ink:#16201a;--muted:#51604c;--faint:#7c8a76;--home:#1f9d57;--draw:#ad7c1f;--away:#1f6fb0;--win:#1f9d57;--loss:#c73a57;--draw-pill:#7c8a76;--on-home:#ffffff;--on-draw:#ffffff;--on-away:#ffffff;--on-loss:#ffffff;--on-draw-pill:#ffffff;--tint-win:rgba(31,157,87,.14);--tint-win-strong:rgba(31,157,87,.22);--tint-away:rgba(31,111,176,.14);--tint-draw:rgba(173,124,31,.14);--draw-border-muted:#cbb77e;--shadow-floating:rgba(60,70,55,.18);--shadow-section:rgba(60,70,55,.14);--lg-alpha:.16;--nav-active-bg:.22;--nav-active-ring:.18;--finished-bg:#e3e3e1;--crest-bg:#ffffff }
 }
-:root[data-theme="dark"]{ --bg:#0d1411;--panel:#141d18;--panel-2:#1b2821;--panel-3:#1f2e26;--panel-3-border:#2c4535;--line:#26352c;--ink:#eaf2ec;--muted:#8aa094;--faint:#5f7268;--home:#3ddc84;--draw:#d9b24a;--away:#4a9bdc;--win:#3ddc84;--loss:#e0607a;--draw-pill:#7d8c84;--on-home:#07140d;--on-draw:#07140d;--on-away:#07151f;--on-loss:#1a0509;--on-draw-pill:#0d1411;--tint-win:rgba(61,220,132,.16);--tint-win-strong:rgba(61,220,132,.28);--tint-away:rgba(74,155,220,.16);--tint-draw:rgba(217,178,74,.16);--draw-border-muted:#3a3220;--shadow-floating:rgba(0,0,0,.5);--shadow-section:rgba(0,0,0,.35);--crest-bg:#ffffff }
-:root[data-theme="light"]{ --bg:#f3f5f0;--panel:#ffffff;--panel-2:#eef1ea;--panel-3:#e4ece3;--panel-3-border:#c3d6c0;--line:#dbe2d6;--ink:#16201a;--muted:#51604c;--faint:#7c8a76;--home:#1f9d57;--draw:#ad7c1f;--away:#1f6fb0;--win:#1f9d57;--loss:#c73a57;--draw-pill:#7c8a76;--on-home:#ffffff;--on-draw:#ffffff;--on-away:#ffffff;--on-loss:#ffffff;--on-draw-pill:#ffffff;--tint-win:rgba(31,157,87,.14);--tint-win-strong:rgba(31,157,87,.22);--tint-away:rgba(31,111,176,.14);--tint-draw:rgba(173,124,31,.14);--draw-border-muted:#cbb77e;--shadow-floating:rgba(60,70,55,.18);--shadow-section:rgba(60,70,55,.14);--crest-bg:#ffffff }
+:root[data-theme="dark"]{ --bg:#0d1411;--panel:#141d18;--panel-2:#1b2821;--panel-3:#1f2e26;--panel-3-border:#2c4535;--line:#26352c;--ink:#eaf2ec;--muted:#8aa094;--faint:#5f7268;--home:#3ddc84;--draw:#d9b24a;--away:#4a9bdc;--win:#3ddc84;--loss:#e0607a;--draw-pill:#7d8c84;--on-home:#07140d;--on-draw:#07140d;--on-away:#07151f;--on-loss:#1a0509;--on-draw-pill:#0d1411;--tint-win:rgba(61,220,132,.16);--tint-win-strong:rgba(61,220,132,.28);--tint-away:rgba(74,155,220,.16);--tint-draw:rgba(217,178,74,.16);--draw-border-muted:#3a3220;--shadow-floating:rgba(0,0,0,.5);--shadow-section:rgba(0,0,0,.35);--lg-alpha:.42;--nav-active-bg:.6;--nav-active-ring:.45;--finished-bg:#242724;--crest-bg:#ffffff }
+:root[data-theme="light"]{ --bg:#f3f5f0;--panel:#ffffff;--panel-2:#eef1ea;--panel-3:#e4ece3;--panel-3-border:#c3d6c0;--line:#dbe2d6;--ink:#16201a;--muted:#51604c;--faint:#7c8a76;--home:#1f9d57;--draw:#ad7c1f;--away:#1f6fb0;--win:#1f9d57;--loss:#c73a57;--draw-pill:#7c8a76;--on-home:#ffffff;--on-draw:#ffffff;--on-away:#ffffff;--on-loss:#ffffff;--on-draw-pill:#ffffff;--tint-win:rgba(31,157,87,.14);--tint-win-strong:rgba(31,157,87,.22);--tint-away:rgba(31,111,176,.14);--tint-draw:rgba(173,124,31,.14);--draw-border-muted:#cbb77e;--shadow-floating:rgba(60,70,55,.18);--shadow-section:rgba(60,70,55,.14);--lg-alpha:.16;--nav-active-bg:.22;--nav-active-ring:.18;--finished-bg:#e3e3e1;--crest-bg:#ffffff }
 
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none !important}
@@ -54,23 +54,34 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .theme-btn:hover{color:var(--ink)}
 .theme-btn.on{background:var(--panel-2);color:var(--home)}
 
-/* top league reference nav */
-.leaguenav{display:flex;gap:10px;overflow-x:auto;padding:16px 0 4px;
-  scrollbar-width:none}
-.leaguenav::-webkit-scrollbar{display:none}
-.pill{display:flex;align-items:center;gap:7px;flex:0 0 auto;
+/* section reference nav — fixed vertically in the left gutter so it stays
+   visible while scrolling; hidden on viewports too narrow to fit it
+   without overlapping the centered content column. */
+.side-nav{position:fixed;left:calc(50% - 576px);top:48px;
+  display:flex;flex-direction:column;
+  align-items:flex-start;gap:10px;z-index:10;max-height:calc(100vh - 68px);
+  overflow-y:auto;scrollbar-width:none}
+.side-nav::-webkit-scrollbar{display:none}
+@media(max-width:1160px){.side-nav{display:none}}
+.pill{display:flex;align-items:center;gap:8px;flex:0 0 auto;
   background:var(--panel);border:1px solid var(--line);border-radius:999px;
-  padding:7px 14px;color:var(--muted);text-decoration:none;font-size:13px;
-  font-weight:600;transition:border-color .15s,color .15s}
+  padding:9px 16px;color:var(--muted);text-decoration:none;font-size:13px;
+  font-weight:600;transition:border-color .15s,color .15s,background .15s}
 .pill:hover{border-color:var(--home);color:var(--ink)}
-.pill img{width:22px;height:22px;object-fit:contain}
+.pill img{width:30px;height:30px;object-fit:contain}
 .pill.bm-pill{color:var(--draw);border-color:var(--draw-border-muted)}
 .pill.bm-pill:hover{border-color:var(--draw);color:var(--draw)}
+.pill.active{border-color:rgb(var(--lg-accent-rgb,61,220,132));border-width:2px;
+  background:rgba(var(--lg-accent-rgb,61,220,132), var(--nav-active-bg));
+  box-shadow:0 0 0 3px rgba(var(--lg-accent-rgb,61,220,132), var(--nav-active-ring));
+  color:var(--ink)}
 
 /* bookmarks section */
 .bookmarks-section{margin:28px 0 36px;padding:20px 20px 6px;
-  background:var(--panel-3);border:1px solid var(--panel-3-border);border-radius:16px}
-.bm-head{background:var(--panel-3);border-bottom-color:var(--panel-3-border);margin-bottom:12px}
+  background:linear-gradient(to left, rgba(var(--lg-accent-rgb,0,0,0), var(--lg-alpha)) 0%,
+    transparent 75%), var(--panel-3);
+  border:1px solid var(--panel-3-border);border-radius:16px}
+.bm-head{--sh-base:var(--panel-3);border-bottom-color:var(--panel-3-border);margin-bottom:12px}
 .bm-head h2{font-size:14px;color:var(--draw);letter-spacing:.02em}
 .bm-group{margin-bottom:18px}
 .bm-group h3{font-size:11px;color:var(--faint);font-family:var(--mono);
@@ -87,15 +98,20 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 
 /* league sections — strong visual separation */
 .league-section{margin:56px 0;padding:18px 18px 6px;
-  background:var(--panel-2);border:1px solid var(--line);border-radius:18px;
+  background:linear-gradient(to left, rgba(var(--lg-accent-rgb,0,0,0), var(--lg-alpha)) 0%,
+    transparent 75%), var(--panel-2);
+  border:1px solid var(--line);border-radius:18px;
   box-shadow:0 6px 24px var(--shadow-section)}
 /* .section-head: shared sticky bar used by every page section (league
    sections, Bookmarks, and any section added later) — title/icon on the
    left, fixture count, then table-toggles (if any) and prev/next section
    links pinned to the right, nav links always rightmost. */
 .section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;
-  position:sticky;top:0;z-index:5;padding:10px 0;border-bottom:1px solid var(--line)}
-.league-head{background:var(--panel-2)}
+  position:sticky;top:0;z-index:5;height:64px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(to left, rgba(var(--lg-accent-rgb,0,0,0), var(--lg-alpha)) 0%,
+    transparent 75%), var(--sh-base)}
+.league-head{--sh-base:var(--panel-2)}
 .league-head img{width:44px;height:44px;object-fit:contain}
 .league-head h2{font-size:16px;font-weight:700;color:var(--ink)}
 .section-head .count{font-family:var(--mono);font-size:12px;color:var(--faint)}
@@ -114,6 +130,11 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
   align-items:center;gap:6px}
 .table-toggle:hover,.table-toggle.on{border-color:var(--home);color:var(--ink)}
 .table-toggle svg,.tbl-btn svg{display:block}
+.league-table-slot:empty{display:none}
+.league-table-slot{margin-bottom:16px;display:flex;gap:16px;
+  align-items:flex-start;justify-content:center;flex-wrap:wrap}
+.league-table-wrap[data-kind="cur"]{order:1}
+.league-table-wrap[data-kind="prev"]{order:2}
 
 /* standings table */
 .league-table-wrap{border:1px solid var(--line);border-radius:10px;
@@ -143,11 +164,27 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
   text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.04em}
 #table-garage{display:none}
 
-.match{background:var(--panel);border:1px solid var(--line);border-radius:14px;
-  padding:20px;margin-bottom:14px}
+.match{background:var(--panel);border:1px solid var(--line);
+  border-left:1px solid var(--line);border-radius:14px;
+  padding:20px;margin-bottom:14px;
+  transition:background .2s,border-left-color .2s}
+/* Live/finished are inferred client-side from kickoff time vs now (the page
+   is only as fresh as the last cron run, so a baked-in status can go stale
+   mid-match) — see applyMatchTiming() in the script at the bottom. */
+.match.m-live{border-left:3px solid var(--loss)}
+.match.m-finished{background:var(--finished-bg)}
 .match-top{display:flex;justify-content:space-between;align-items:center;
   gap:12px;margin-bottom:16px}
+.match-top-left{display:flex;align-items:center;gap:8px}
 .kickoff{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.status-badge{font-family:var(--mono);font-size:10px;font-weight:700;
+  padding:2px 8px;border-radius:999px;letter-spacing:.04em}
+.status-badge:empty{display:none}
+.status-badge.live{background:var(--loss);color:var(--on-loss);
+  animation:badge-pulse 1.6s ease-in-out infinite}
+.status-badge.finished{background:var(--panel-2);color:var(--faint);
+  border:1px solid var(--line)}
+@keyframes badge-pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .match-top-right{display:flex;align-items:center;gap:10px}
 .tbl-btn{background:none;border:none;color:var(--faint);
   cursor:pointer;line-height:1;padding:2px;display:flex;align-items:center}
@@ -164,7 +201,7 @@ header.top{padding:48px 0 22px;border-bottom:1px solid var(--line);margin-bottom
 .team .nm{font-weight:650;font-size:17px}
 .team .rk{font-size:12px;color:var(--faint);font-family:var(--mono)}
 .vs{font-size:22px;font-weight:800;color:var(--home)}
-.vs .score{font-size:13px;color:var(--muted);font-weight:500;display:block;
+.vs .score{font-size:26px;color:var(--ink);font-weight:800;display:block;
   text-align:center;margin-top:2px}
 
 /* probability bar — the hero element */
@@ -279,7 +316,9 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
   .formcols{grid-template-columns:1fr;gap:20px}
 }
 </style></head>
-<body><div class="wrap">
+<body>
+<nav class="side-nav" aria-label="Sections"><a href="#bookmarks" id="bm-pill" class="pill bm-pill" style="--lg-accent-rgb:200,150,40" hidden>★ Bookmarks</a><a href="#PL" class="pill" style="--lg-accent-rgb:93,31,145" title="Premier League"><img src="https://crests.football-data.org/PL.png" alt=""></a><a href="#PD" class="pill" style="--lg-accent-rgb:226,86,25" title="La Liga"><img src="https://crests.football-data.org/laliga.png" alt=""></a><a href="#SA" class="pill" style="--lg-accent-rgb:20,120,70" title="Serie A"><img src="https://crests.football-data.org/c111.png" alt=""></a><a href="#BL1" class="pill" style="--lg-accent-rgb:200,16,46" title="Bundesliga"><img src="https://crests.football-data.org/BL1.png" alt=""></a><a href="#FL1" class="pill" style="--lg-accent-rgb:30,100,210" title="Ligue 1"><img src="https://crests.football-data.org/FL1.png" alt=""></a><a href="#CL" class="pill" style="--lg-accent-rgb:50,20,115" title="UEFA Champions League"><img src="https://crests.football-data.org/CL.png" alt=""></a></nav>
+<div class="wrap">
 <header class="top">
   <div class="top-row">
     <div class="title">Matchday <span class="accent">Forecast</span></div>
@@ -290,11 +329,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </div>
   <div class="sub">Model-based previews for the next few days across Europe's major competitions.</div>
-  <div class="meta">42 fixtures · generated <span id="gen-time" data-utc="2026-10-18T11:55:35.045888+00:00">Sunday 18 October 2026, 11:55 UTC</span></div>
-  <nav class="leaguenav"><a href="#bookmarks" id="bm-pill" class="pill bm-pill" hidden>★ Bookmarks</a><a href="#PL" class="pill" title="Premier League"><img src="https://crests.football-data.org/PL.png" alt=""></a><a href="#PD" class="pill" title="La Liga"><img src="https://crests.football-data.org/laliga.png" alt=""></a><a href="#SA" class="pill" title="Serie A"><img src="https://crests.football-data.org/c111.png" alt=""></a><a href="#BL1" class="pill" title="Bundesliga"><img src="https://crests.football-data.org/BL1.png" alt=""></a><a href="#FL1" class="pill" title="Ligue 1"><img src="https://crests.football-data.org/FL1.png" alt=""></a><a href="#CL" class="pill" title="UEFA Champions League"><img src="https://crests.football-data.org/CL.png" alt=""></a></nav>
+  <div class="meta">42 fixtures · generated <span id="gen-time" data-utc="2026-10-18T23:19:13.290324+00:00">Sunday 18 October 2026, 23:19 UTC</span></div>
 </header>
 
-<section id="bookmarks" class="bookmarks-section page-section" hidden>
+<section id="bookmarks" class="bookmarks-section page-section" hidden style="--lg-accent-rgb:200,150,40">
   <div class="section-head bm-head">
     <h2>★ Bookmarks</h2>
     <span class="count" id="bm-count"></span>
@@ -316,7 +354,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </section>
 
 
-<section class="league-section page-section" id="PL">
+<section class="league-section page-section" id="PL" style="--lg-accent-rgb:93,31,145">
   <div class="section-head league-head"><img src="https://crests.football-data.org/PL.png" alt=""><h2>Premier League</h2>
     <span class="count">5 fixtures</span>
     <div class="head-actions">
@@ -327,10 +365,14 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       </span>
     </div>
   </div>
+  <div class="league-table-slot" id="slot-PL-header"></div>
   
-<article class="match" data-id="560604" data-status="NS" data-snapshot="{&quot;id&quot;: 560604, &quot;home&quot;: &quot;AFC Bournemouth&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/bournemouth.png&quot;, &quot;away&quot;: &quot;Sunderland AFC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/71.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;AFC Bournemouth win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="560604" data-status="FT" data-snapshot="{&quot;id&quot;: 560604, &quot;home&quot;: &quot;AFC Bournemouth&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/bournemouth.png&quot;, &quot;away&quot;: &quot;Sunderland AFC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/71.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;2\u20130&quot;, &quot;verdict&quot;: &quot;AFC Bournemouth win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="1044" data-away-id="71"
@@ -347,7 +389,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">AFC Bournemouth</div>
       <div class="rk">#19</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">2–0</span></div>
     <div class="team away">
       <div><div class="nm">Sunderland AFC</div>
       <div class="rk">#18</div></div>
@@ -370,7 +412,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">AFC Bournemouth win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="42">42% confidence</span>
   </div>
 
@@ -449,9 +491,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="560605" data-status="NS" data-snapshot="{&quot;id&quot;: 560605, &quot;home&quot;: &quot;Leeds United FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/341.png&quot;, &quot;away&quot;: &quot;Manchester United FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/66.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Leeds United FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="560605" data-status="FT" data-snapshot="{&quot;id&quot;: 560605, &quot;home&quot;: &quot;Leeds United FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/341.png&quot;, &quot;away&quot;: &quot;Manchester United FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/66.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;1\u20131&quot;, &quot;verdict&quot;: &quot;Leeds United FC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="341" data-away-id="66"
@@ -468,7 +513,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">Leeds United FC</div>
       <div class="rk">#8</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">1–1</span></div>
     <div class="team away">
       <div><div class="nm">Manchester United FC</div>
       <div class="rk">#14</div></div>
@@ -491,7 +536,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Leeds United FC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
@@ -570,9 +615,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="560609" data-status="NS" data-snapshot="{&quot;id&quot;: 560609, &quot;home&quot;: &quot;Brighton &amp; Hove Albion FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/397.png&quot;, &quot;away&quot;: &quot;Crystal Palace FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/354.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Brighton &amp; Hove Albion FC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
+<article class="match" data-id="560609" data-status="FT" data-snapshot="{&quot;id&quot;: 560609, &quot;home&quot;: &quot;Brighton &amp; Hove Albion FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/397.png&quot;, &quot;away&quot;: &quot;Crystal Palace FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/354.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;5\u20130&quot;, &quot;verdict&quot;: &quot;Brighton &amp; Hove Albion FC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="397" data-away-id="354"
@@ -589,7 +637,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">Brighton &amp; Hove Albion FC</div>
       <div class="rk">#3</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">5–0</span></div>
     <div class="team away">
       <div><div class="nm">Crystal Palace FC</div>
       <div class="rk">#13</div></div>
@@ -691,9 +739,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="560608" data-status="NS" data-snapshot="{&quot;id&quot;: 560608, &quot;home&quot;: &quot;Nottingham Forest FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/351.png&quot;, &quot;away&quot;: &quot;Arsenal FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/57.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Arsenal FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="560608" data-status="LIVE" data-snapshot="{&quot;id&quot;: 560608, &quot;home&quot;: &quot;Nottingham Forest FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/351.png&quot;, &quot;away&quot;: &quot;Arsenal FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/57.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:30:00+00:00&quot;, &quot;status&quot;: &quot;LIVE&quot;, &quot;finalScore&quot;: &quot;0\u20131&quot;, &quot;verdict&quot;: &quot;Arsenal FC win&quot;, &quot;likelyScore&quot;: &quot;0\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T15:30:00+00:00">Sun 18 Oct · 15:30 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T15:30:00+00:00">Sun 18 Oct · 15:30 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="351" data-away-id="57"
@@ -733,7 +784,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Arsenal FC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 0–1</span>
     <span class="conf" data-confidence="49">49% confidence</span>
   </div>
 
@@ -812,9 +863,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="560606" data-status="NS" data-snapshot="{&quot;id&quot;: 560606, &quot;home&quot;: &quot;Tottenham Hotspur FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/73.png&quot;, &quot;away&quot;: &quot;Coventry City FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/1076.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-19T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Tottenham Hotspur FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="560606" data-status="NS" data-snapshot="{&quot;id&quot;: 560606, &quot;home&quot;: &quot;Tottenham Hotspur FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/73.png&quot;, &quot;away&quot;: &quot;Coventry City FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/1076.png&quot;, &quot;league&quot;: &quot;Premier League&quot;, &quot;leagueCode&quot;: &quot;PL&quot;, &quot;kickoff&quot;: &quot;2026-10-19T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Tottenham Hotspur FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20130&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-19T19:00:00+00:00">Mon 19 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-19T19:00:00+00:00">Mon 19 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PL" data-kind="prev"
         data-home-id="73" data-away-id="1076"
@@ -854,7 +908,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Tottenham Hotspur FC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–0</span>
     <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
@@ -935,7 +989,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section page-section" id="PD">
+<section class="league-section page-section" id="PD" style="--lg-accent-rgb:226,86,25">
   <div class="section-head league-head"><img src="https://crests.football-data.org/laliga.png" alt=""><h2>La Liga</h2>
     <span class="count">6 fixtures</span>
     <div class="head-actions">
@@ -946,10 +1000,14 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       </span>
     </div>
   </div>
+  <div class="league-table-slot" id="slot-PD-header"></div>
   
-<article class="match" data-id="564715" data-status="NS" data-snapshot="{&quot;id&quot;: 564715, &quot;home&quot;: &quot;CA Osasuna&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/79.png&quot;, &quot;away&quot;: &quot;Real Racing Club de Santander&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5335.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T12:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;CA Osasuna win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
+<article class="match" data-id="564715" data-status="FT" data-snapshot="{&quot;id&quot;: 564715, &quot;home&quot;: &quot;CA Osasuna&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/79.png&quot;, &quot;away&quot;: &quot;Real Racing Club de Santander&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5335.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T12:00:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;2\u20130&quot;, &quot;verdict&quot;: &quot;CA Osasuna win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T12:00:00+00:00">Sun 18 Oct · 12:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T12:00:00+00:00">Sun 18 Oct · 12:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="79" data-away-id="5335"
@@ -966,7 +1024,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">CA Osasuna</div>
       <div class="rk">#16</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">2–0</span></div>
     <div class="team away">
       <div><div class="nm">Real Racing Club de Santander</div>
       <div class="rk">#15</div></div>
@@ -989,7 +1047,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">CA Osasuna win</span>
-    <span class="score-pred">likely 2–2</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
@@ -1068,9 +1126,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="564712" data-status="NS" data-snapshot="{&quot;id&quot;: 564712, &quot;home&quot;: &quot;RC Celta de Vigo&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/558.png&quot;, &quot;away&quot;: &quot;Deportivo Alav\u00e9s&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/263.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T14:15:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;RC Celta de Vigo win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="564712" data-status="FT" data-snapshot="{&quot;id&quot;: 564712, &quot;home&quot;: &quot;RC Celta de Vigo&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/558.png&quot;, &quot;away&quot;: &quot;Deportivo Alav\u00e9s&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/263.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T14:15:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;2\u20131&quot;, &quot;verdict&quot;: &quot;RC Celta de Vigo win&quot;, &quot;likelyScore&quot;: &quot;1\u20130&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T14:15:00+00:00">Sun 18 Oct · 14:15 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T14:15:00+00:00">Sun 18 Oct · 14:15 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="558" data-away-id="263"
@@ -1087,7 +1148,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">RC Celta de Vigo</div>
       <div class="rk">#11</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">2–1</span></div>
     <div class="team away">
       <div><div class="nm">Deportivo Alavés</div>
       <div class="rk">#7</div></div>
@@ -1110,7 +1171,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">RC Celta de Vigo win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–0</span>
     <span class="conf" data-confidence="46">46% confidence</span>
   </div>
 
@@ -1189,9 +1250,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="564714" data-status="NS" data-snapshot="{&quot;id&quot;: 564714, &quot;home&quot;: &quot;M\u00e1laga CF&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/84.png&quot;, &quot;away&quot;: &quot;Real Sociedad de F\u00fatbol&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/92.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T16:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Real Sociedad de F\u00fatbol win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="564714" data-status="LIVE" data-snapshot="{&quot;id&quot;: 564714, &quot;home&quot;: &quot;M\u00e1laga CF&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/84.png&quot;, &quot;away&quot;: &quot;Real Sociedad de F\u00fatbol&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/92.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T16:30:00+00:00&quot;, &quot;status&quot;: &quot;LIVE&quot;, &quot;finalScore&quot;: &quot;0\u20132&quot;, &quot;verdict&quot;: &quot;Real Sociedad de F\u00fatbol win&quot;, &quot;likelyScore&quot;: &quot;1\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T16:30:00+00:00">Sun 18 Oct · 16:30 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T16:30:00+00:00">Sun 18 Oct · 16:30 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="84" data-away-id="92"
@@ -1231,7 +1295,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Real Sociedad de Fútbol win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–2</span>
     <span class="conf" data-confidence="38">38% confidence</span>
   </div>
 
@@ -1312,7 +1376,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="564709" data-status="NS" data-snapshot="{&quot;id&quot;: 564709, &quot;home&quot;: &quot;Real Madrid CF&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/86.png&quot;, &quot;away&quot;: &quot;Sevilla FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/559.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-18T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Real Madrid CF win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T19:00:00+00:00">Sun 18 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T19:00:00+00:00">Sun 18 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="86" data-away-id="559"
@@ -1431,9 +1498,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="564717" data-status="NS" data-snapshot="{&quot;id&quot;: 564717, &quot;home&quot;: &quot;Getafe CF&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/82.png&quot;, &quot;away&quot;: &quot;Rayo Vallecano de Madrid&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/87.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-19T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Getafe CF win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="564717" data-status="NS" data-snapshot="{&quot;id&quot;: 564717, &quot;home&quot;: &quot;Getafe CF&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/82.png&quot;, &quot;away&quot;: &quot;Rayo Vallecano de Madrid&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/87.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-19T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Getafe CF win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-19T19:00:00+00:00">Mon 19 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-19T19:00:00+00:00">Mon 19 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="82" data-away-id="87"
@@ -1473,7 +1543,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Getafe CF win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="40">40% confidence</span>
   </div>
 
@@ -1552,9 +1622,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="564685" data-status="NS" data-snapshot="{&quot;id&quot;: 564685, &quot;home&quot;: &quot;Levante UD&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/88.png&quot;, &quot;away&quot;: &quot;Athletic Club&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/77.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-21T18:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;0\u20130&quot;, &quot;verdict&quot;: &quot;Athletic Club win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="564685" data-status="NS" data-snapshot="{&quot;id&quot;: 564685, &quot;home&quot;: &quot;Levante UD&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/88.png&quot;, &quot;away&quot;: &quot;Athletic Club&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/77.png&quot;, &quot;league&quot;: &quot;La Liga&quot;, &quot;leagueCode&quot;: &quot;PD&quot;, &quot;kickoff&quot;: &quot;2026-10-21T18:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;0\u20130&quot;, &quot;verdict&quot;: &quot;Athletic Club win&quot;, &quot;likelyScore&quot;: &quot;0\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T18:00:00+00:00">Wed 21 Oct · 18:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T18:00:00+00:00">Wed 21 Oct · 18:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="PD" data-kind="prev"
         data-home-id="88" data-away-id="77"
@@ -1594,7 +1667,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Athletic Club win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 0–1</span>
     <span class="conf" data-confidence="49">49% confidence</span>
   </div>
 
@@ -1675,7 +1748,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section page-section" id="SA">
+<section class="league-section page-section" id="SA" style="--lg-accent-rgb:20,120,70">
   <div class="section-head league-head"><img src="https://crests.football-data.org/c111.png" alt=""><h2>Serie A</h2>
     <span class="count">6 fixtures</span>
     <div class="head-actions">
@@ -1686,10 +1759,14 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       </span>
     </div>
   </div>
+  <div class="league-table-slot" id="slot-SA-header"></div>
   
-<article class="match" data-id="558574" data-status="NS" data-snapshot="{&quot;id&quot;: 558574, &quot;home&quot;: &quot;Udinese Calcio&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/115.png&quot;, &quot;away&quot;: &quot;US Lecce&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5890.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T10:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Udinese Calcio win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
+<article class="match" data-id="558574" data-status="FT" data-snapshot="{&quot;id&quot;: 558574, &quot;home&quot;: &quot;Udinese Calcio&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/115.png&quot;, &quot;away&quot;: &quot;US Lecce&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5890.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T10:30:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;0\u20133&quot;, &quot;verdict&quot;: &quot;Udinese Calcio win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T10:30:00+00:00">Sun 18 Oct · 10:30 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T10:30:00+00:00">Sun 18 Oct · 10:30 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="115" data-away-id="5890"
@@ -1706,7 +1783,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">Udinese Calcio</div>
       <div class="rk">#15</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">0–3</span></div>
     <div class="team away">
       <div><div class="nm">US Lecce</div>
       <div class="rk">#13</div></div>
@@ -1808,9 +1885,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="558577" data-status="NS" data-snapshot="{&quot;id&quot;: 558577, &quot;home&quot;: &quot;ACF Fiorentina&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/99.png&quot;, &quot;away&quot;: &quot;Como 1907&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/7397.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Como 1907 win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="558577" data-status="FT" data-snapshot="{&quot;id&quot;: 558577, &quot;home&quot;: &quot;ACF Fiorentina&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/99.png&quot;, &quot;away&quot;: &quot;Como 1907&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/7397.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;1\u20133&quot;, &quot;verdict&quot;: &quot;Como 1907 win&quot;, &quot;likelyScore&quot;: &quot;1\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="99" data-away-id="7397"
@@ -1827,7 +1907,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">ACF Fiorentina</div>
       <div class="rk">#18</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">1–3</span></div>
     <div class="team away">
       <div><div class="nm">Como 1907</div>
       <div class="rk">#8</div></div>
@@ -1850,7 +1930,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Como 1907 win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–2</span>
     <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
@@ -1929,9 +2009,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="558569" data-status="NS" data-snapshot="{&quot;id&quot;: 558569, &quot;home&quot;: &quot;AC Milan&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/98.png&quot;, &quot;away&quot;: &quot;Atalanta BC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/102.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T16:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;AC Milan win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="558569" data-status="LIVE" data-snapshot="{&quot;id&quot;: 558569, &quot;home&quot;: &quot;AC Milan&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/98.png&quot;, &quot;away&quot;: &quot;Atalanta BC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/102.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T16:00:00+00:00&quot;, &quot;status&quot;: &quot;LIVE&quot;, &quot;finalScore&quot;: &quot;2\u20130&quot;, &quot;verdict&quot;: &quot;AC Milan win&quot;, &quot;likelyScore&quot;: &quot;1\u20130&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T16:00:00+00:00">Sun 18 Oct · 16:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T16:00:00+00:00">Sun 18 Oct · 16:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="98" data-away-id="102"
@@ -1971,7 +2054,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">AC Milan win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–0</span>
     <span class="conf" data-confidence="51">51% confidence</span>
   </div>
 
@@ -2050,9 +2133,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="558570" data-status="NS" data-snapshot="{&quot;id&quot;: 558570, &quot;home&quot;: &quot;Juventus FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/109.png&quot;, &quot;away&quot;: &quot;SS Lazio&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/110.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T18:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Juventus FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="558570" data-status="NS" data-snapshot="{&quot;id&quot;: 558570, &quot;home&quot;: &quot;Juventus FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/109.png&quot;, &quot;away&quot;: &quot;SS Lazio&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/110.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-18T18:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Juventus FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20130&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T18:45:00+00:00">Sun 18 Oct · 18:45 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T18:45:00+00:00">Sun 18 Oct · 18:45 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="109" data-away-id="110"
@@ -2092,7 +2178,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Juventus FC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–0</span>
     <span class="conf" data-confidence="38">38% confidence</span>
   </div>
 
@@ -2171,9 +2257,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="558576" data-status="NS" data-snapshot="{&quot;id&quot;: 558576, &quot;home&quot;: &quot;AC Monza&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/5911.png&quot;, &quot;away&quot;: &quot;Cagliari Calcio&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/104.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-19T16:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Cagliari Calcio win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="558576" data-status="NS" data-snapshot="{&quot;id&quot;: 558576, &quot;home&quot;: &quot;AC Monza&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/5911.png&quot;, &quot;away&quot;: &quot;Cagliari Calcio&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/104.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-19T16:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Cagliari Calcio win&quot;, &quot;likelyScore&quot;: &quot;1\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-19T16:30:00+00:00">Mon 19 Oct · 16:30 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-19T16:30:00+00:00">Mon 19 Oct · 16:30 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="5911" data-away-id="104"
@@ -2213,7 +2302,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Cagliari Calcio win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–2</span>
     <span class="conf" data-confidence="46">46% confidence</span>
   </div>
 
@@ -2292,9 +2381,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="558578" data-status="NS" data-snapshot="{&quot;id&quot;: 558578, &quot;home&quot;: &quot;Parma Calcio 1913&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/112.png&quot;, &quot;away&quot;: &quot;Torino FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/586.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-19T18:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Torino FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="558578" data-status="NS" data-snapshot="{&quot;id&quot;: 558578, &quot;home&quot;: &quot;Parma Calcio 1913&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/112.png&quot;, &quot;away&quot;: &quot;Torino FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/586.png&quot;, &quot;league&quot;: &quot;Serie A&quot;, &quot;leagueCode&quot;: &quot;SA&quot;, &quot;kickoff&quot;: &quot;2026-10-19T18:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Torino FC win&quot;, &quot;likelyScore&quot;: &quot;0\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-19T18:45:00+00:00">Mon 19 Oct · 18:45 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-19T18:45:00+00:00">Mon 19 Oct · 18:45 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="SA" data-kind="prev"
         data-home-id="112" data-away-id="586"
@@ -2334,7 +2426,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Torino FC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 0–1</span>
     <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
@@ -2415,7 +2507,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section page-section" id="BL1">
+<section class="league-section page-section" id="BL1" style="--lg-accent-rgb:200,16,46">
   <div class="section-head league-head"><img src="https://crests.football-data.org/BL1.png" alt=""><h2>Bundesliga</h2>
     <span class="count">2 fixtures</span>
     <div class="head-actions">
@@ -2426,10 +2518,14 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       </span>
     </div>
   </div>
+  <div class="league-table-slot" id="slot-BL1-header"></div>
   
-<article class="match" data-id="565827" data-status="NS" data-snapshot="{&quot;id&quot;: 565827, &quot;home&quot;: &quot;Bayer 04 Leverkusen&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/3.png&quot;, &quot;away&quot;: &quot;SC Freiburg&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/17.png&quot;, &quot;league&quot;: &quot;Bundesliga&quot;, &quot;leagueCode&quot;: &quot;BL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Bayer 04 Leverkusen win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
+<article class="match" data-id="565827" data-status="FT" data-snapshot="{&quot;id&quot;: 565827, &quot;home&quot;: &quot;Bayer 04 Leverkusen&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/3.png&quot;, &quot;away&quot;: &quot;SC Freiburg&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/17.png&quot;, &quot;league&quot;: &quot;Bundesliga&quot;, &quot;leagueCode&quot;: &quot;BL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:30:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;2\u20131&quot;, &quot;verdict&quot;: &quot;Bayer 04 Leverkusen win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T13:30:00+00:00">Sun 18 Oct · 13:30 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T13:30:00+00:00">Sun 18 Oct · 13:30 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="BL1" data-kind="prev"
         data-home-id="3" data-away-id="17"
@@ -2446,7 +2542,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">Bayer 04 Leverkusen</div>
       <div class="rk">#4</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">2–1</span></div>
     <div class="team away">
       <div><div class="nm">SC Freiburg</div>
       <div class="rk">#3</div></div>
@@ -2469,7 +2565,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Bayer 04 Leverkusen win</span>
-    <span class="score-pred">likely 2–2</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
@@ -2548,9 +2644,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="565826" data-status="NS" data-snapshot="{&quot;id&quot;: 565826, &quot;home&quot;: &quot;Borussia M\u00f6nchengladbach&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/18.png&quot;, &quot;away&quot;: &quot;TSG 1899 Hoffenheim&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/2.png&quot;, &quot;league&quot;: &quot;Bundesliga&quot;, &quot;leagueCode&quot;: &quot;BL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:30:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;TSG 1899 Hoffenheim win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
+<article class="match" data-id="565826" data-status="LIVE" data-snapshot="{&quot;id&quot;: 565826, &quot;home&quot;: &quot;Borussia M\u00f6nchengladbach&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/18.png&quot;, &quot;away&quot;: &quot;TSG 1899 Hoffenheim&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/2.png&quot;, &quot;league&quot;: &quot;Bundesliga&quot;, &quot;leagueCode&quot;: &quot;BL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:30:00+00:00&quot;, &quot;status&quot;: &quot;LIVE&quot;, &quot;finalScore&quot;: &quot;1\u20132&quot;, &quot;verdict&quot;: &quot;TSG 1899 Hoffenheim win&quot;, &quot;likelyScore&quot;: &quot;2\u20133&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T15:30:00+00:00">Sun 18 Oct · 15:30 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T15:30:00+00:00">Sun 18 Oct · 15:30 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="BL1" data-kind="prev"
         data-home-id="18" data-away-id="2"
@@ -2590,7 +2689,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">TSG 1899 Hoffenheim win</span>
-    <span class="score-pred">likely 2–2</span>
+    <span class="score-pred">likely 2–3</span>
     <span class="conf" data-confidence="45">45% confidence</span>
   </div>
 
@@ -2671,7 +2770,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section page-section" id="FL1">
+<section class="league-section page-section" id="FL1" style="--lg-accent-rgb:30,100,210">
   <div class="section-head league-head"><img src="https://crests.football-data.org/FL1.png" alt=""><h2>Ligue 1</h2>
     <span class="count">5 fixtures</span>
     <div class="head-actions">
@@ -2682,10 +2781,14 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       </span>
     </div>
   </div>
+  <div class="league-table-slot" id="slot-FL1-header"></div>
   
-<article class="match" data-id="559664" data-status="NS" data-snapshot="{&quot;id&quot;: 559664, &quot;home&quot;: &quot;Angers SCO&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/532.png&quot;, &quot;away&quot;: &quot;Olympique de Marseille&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/516.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Olympique de Marseille win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="559664" data-status="FT" data-snapshot="{&quot;id&quot;: 559664, &quot;home&quot;: &quot;Angers SCO&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/532.png&quot;, &quot;away&quot;: &quot;Olympique de Marseille&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/516.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T13:00:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;2\u20135&quot;, &quot;verdict&quot;: &quot;Olympique de Marseille win&quot;, &quot;likelyScore&quot;: &quot;1\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T13:00:00+00:00">Sun 18 Oct · 13:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="532" data-away-id="516"
@@ -2702,7 +2805,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">Angers SCO</div>
       <div class="rk">#13</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">2–5</span></div>
     <div class="team away">
       <div><div class="nm">Olympique de Marseille</div>
       <div class="rk">#14</div></div>
@@ -2725,7 +2828,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Olympique de Marseille win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–2</span>
     <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
@@ -2804,9 +2907,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="559657" data-status="NS" data-snapshot="{&quot;id&quot;: 559657, &quot;home&quot;: &quot;FC Lorient&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/525.png&quot;, &quot;away&quot;: &quot;AS Monaco FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/548.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:15:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;AS Monaco FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="559657" data-status="FT" data-snapshot="{&quot;id&quot;: 559657, &quot;home&quot;: &quot;FC Lorient&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/525.png&quot;, &quot;away&quot;: &quot;AS Monaco FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/548.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:15:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;1\u20130&quot;, &quot;verdict&quot;: &quot;AS Monaco FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="525" data-away-id="548"
@@ -2823,7 +2929,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">FC Lorient</div>
       <div class="rk">#10</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">1–0</span></div>
     <div class="team away">
       <div><div class="nm">AS Monaco FC</div>
       <div class="rk">#3</div></div>
@@ -2846,7 +2952,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">AS Monaco FC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–2</span>
     <span class="conf" data-confidence="38">38% confidence</span>
   </div>
 
@@ -2925,9 +3031,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="559658" data-status="NS" data-snapshot="{&quot;id&quot;: 559658, &quot;home&quot;: &quot;Paris FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/1045.png&quot;, &quot;away&quot;: &quot;Stade Rennais FC 1901&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/529.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:15:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Paris FC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="559658" data-status="LIVE" data-snapshot="{&quot;id&quot;: 559658, &quot;home&quot;: &quot;Paris FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/1045.png&quot;, &quot;away&quot;: &quot;Stade Rennais FC 1901&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/529.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:15:00+00:00&quot;, &quot;status&quot;: &quot;LIVE&quot;, &quot;finalScore&quot;: &quot;3\u20133&quot;, &quot;verdict&quot;: &quot;Paris FC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="1045" data-away-id="529"
@@ -2967,7 +3076,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Paris FC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="42">42% confidence</span>
   </div>
 
@@ -3046,9 +3155,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="559663" data-status="NS" data-snapshot="{&quot;id&quot;: 559663, &quot;home&quot;: &quot;Le Havre AC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/533.png&quot;, &quot;away&quot;: &quot;AJ Auxerre&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/519.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:15:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Le Havre AC win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="559663" data-status="FT" data-snapshot="{&quot;id&quot;: 559663, &quot;home&quot;: &quot;Le Havre AC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/533.png&quot;, &quot;away&quot;: &quot;AJ Auxerre&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/519.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T15:15:00+00:00&quot;, &quot;status&quot;: &quot;FT&quot;, &quot;finalScore&quot;: &quot;1\u20133&quot;, &quot;verdict&quot;: &quot;Le Havre AC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T15:15:00+00:00">Sun 18 Oct · 15:15 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="533" data-away-id="519"
@@ -3065,7 +3177,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       <div><div class="nm">Le Havre AC</div>
       <div class="rk">#18</div></div>
     </div>
-    <div class="vs"></div>
+    <div class="vs"><span class="score">1–3</span></div>
     <div class="team away">
       <div><div class="nm">AJ Auxerre</div>
       <div class="rk">#16</div></div>
@@ -3088,7 +3200,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Le Havre AC win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="53">53% confidence</span>
   </div>
 
@@ -3169,7 +3281,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="559665" data-status="NS" data-snapshot="{&quot;id&quot;: 559665, &quot;home&quot;: &quot;Olympique Lyonnais&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/523.png&quot;, &quot;away&quot;: &quot;OGC Nice&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/522.png&quot;, &quot;league&quot;: &quot;Ligue 1&quot;, &quot;leagueCode&quot;: &quot;FL1&quot;, &quot;kickoff&quot;: &quot;2026-10-18T18:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Olympique Lyonnais win&quot;, &quot;likelyScore&quot;: &quot;1\u20130&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-18T18:45:00+00:00">Sun 18 Oct · 18:45 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-18T18:45:00+00:00">Sun 18 Oct · 18:45 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="FL1" data-kind="prev"
         data-home-id="523" data-away-id="522"
@@ -3290,7 +3405,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 </section>
 
-<section class="league-section page-section" id="CL">
+<section class="league-section page-section" id="CL" style="--lg-accent-rgb:50,20,115">
   <div class="section-head league-head"><img src="https://crests.football-data.org/CL.png" alt=""><h2>UEFA Champions League</h2>
     <span class="count">18 fixtures</span>
     <div class="head-actions">
@@ -3301,10 +3416,14 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
       </span>
     </div>
   </div>
+  <div class="league-table-slot" id="slot-CL-header"></div>
   
-<article class="match" data-id="575359" data-status="NS" data-snapshot="{&quot;id&quot;: 575359, &quot;home&quot;: &quot;Sabah FK&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/10233.png&quot;, &quot;away&quot;: &quot;Borussia Dortmund&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/4.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T16:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Borussia Dortmund win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="575359" data-status="NS" data-snapshot="{&quot;id&quot;: 575359, &quot;home&quot;: &quot;Sabah FK&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/10233.png&quot;, &quot;away&quot;: &quot;Borussia Dortmund&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/4.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T16:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Borussia Dortmund win&quot;, &quot;likelyScore&quot;: &quot;1\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T16:45:00+00:00">Tue 20 Oct · 16:45 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T16:45:00+00:00">Tue 20 Oct · 16:45 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="10233" data-away-id="4"
@@ -3344,7 +3463,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Borussia Dortmund win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–2</span>
     <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
@@ -3425,7 +3544,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575360" data-status="NS" data-snapshot="{&quot;id&quot;: 575360, &quot;home&quot;: &quot;Fenerbah\u00e7e SK&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/613.png&quot;, &quot;away&quot;: &quot;SK Slavia Praha&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/930.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T16:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;SK Slavia Praha win&quot;, &quot;likelyScore&quot;: &quot;1\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T16:45:00+00:00">Tue 20 Oct · 16:45 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T16:45:00+00:00">Tue 20 Oct · 16:45 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="613" data-away-id="930"
@@ -3546,7 +3668,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575361" data-status="NS" data-snapshot="{&quot;id&quot;: 575361, &quot;home&quot;: &quot;Manchester City FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/65.png&quot;, &quot;away&quot;: &quot;PAE AEK&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/1899.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Manchester City FC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="65" data-away-id="1899"
@@ -3665,9 +3790,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575362" data-status="NS" data-snapshot="{&quot;id&quot;: 575362, &quot;home&quot;: &quot;VfB Stuttgart&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/10.png&quot;, &quot;away&quot;: &quot;Club Atl\u00e9tico de Madrid&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/78.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;VfB Stuttgart win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="575362" data-status="NS" data-snapshot="{&quot;id&quot;: 575362, &quot;home&quot;: &quot;VfB Stuttgart&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/10.png&quot;, &quot;away&quot;: &quot;Club Atl\u00e9tico de Madrid&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/78.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;VfB Stuttgart win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="10" data-away-id="78"
@@ -3707,7 +3835,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">VfB Stuttgart win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
@@ -3788,7 +3916,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575363" data-status="NS" data-snapshot="{&quot;id&quot;: 575363, &quot;home&quot;: &quot;Liverpool FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/64.png&quot;, &quot;away&quot;: &quot;Villarreal CF&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/94.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Liverpool FC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="64" data-away-id="94"
@@ -3909,7 +4040,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575364" data-status="NS" data-snapshot="{&quot;id&quot;: 575364, &quot;home&quot;: &quot;AS Roma&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/100.png&quot;, &quot;away&quot;: &quot;\u0160K Slovan Bratislava&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/7509.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;AS Roma win&quot;, &quot;likelyScore&quot;: &quot;3\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="100" data-away-id="7509"
@@ -4028,9 +4162,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575365" data-status="NS" data-snapshot="{&quot;id&quot;: 575365, &quot;home&quot;: &quot;FC Porto&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/503.png&quot;, &quot;away&quot;: &quot;PSV&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/674.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;FC Porto win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="575365" data-status="NS" data-snapshot="{&quot;id&quot;: 575365, &quot;home&quot;: &quot;FC Porto&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/503.png&quot;, &quot;away&quot;: &quot;PSV&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/674.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;FC Porto win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="503" data-away-id="674"
@@ -4070,7 +4207,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">FC Porto win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
@@ -4149,9 +4286,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575366" data-status="NS" data-snapshot="{&quot;id&quot;: 575366, &quot;home&quot;: &quot;SSC Napoli&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/113.png&quot;, &quot;away&quot;: &quot;FK Bod\u00f8/Glimt&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5721.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;SSC Napoli win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="575366" data-status="NS" data-snapshot="{&quot;id&quot;: 575366, &quot;home&quot;: &quot;SSC Napoli&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/113.png&quot;, &quot;away&quot;: &quot;FK Bod\u00f8/Glimt&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5721.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;SSC Napoli win&quot;, &quot;likelyScore&quot;: &quot;1\u20130&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="113" data-away-id="5721"
@@ -4191,7 +4331,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">SSC Napoli win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 1–0</span>
     <span class="conf" data-confidence="57">57% confidence</span>
   </div>
 
@@ -4270,9 +4410,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575367" data-status="NS" data-snapshot="{&quot;id&quot;: 575367, &quot;home&quot;: &quot;Paris Saint-Germain FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/524.png&quot;, &quot;away&quot;: &quot;FC Barcelona&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/81.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Paris Saint-Germain FC win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
+<article class="match" data-id="575367" data-status="NS" data-snapshot="{&quot;id&quot;: 575367, &quot;home&quot;: &quot;Paris Saint-Germain FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/524.png&quot;, &quot;away&quot;: &quot;FC Barcelona&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/81.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-20T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Paris Saint-Germain FC win&quot;, &quot;likelyScore&quot;: &quot;3\u20132&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-20T19:00:00+00:00">Tue 20 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="524" data-away-id="81"
@@ -4312,7 +4455,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Paris Saint-Germain FC win</span>
-    <span class="score-pred">likely 2–2</span>
+    <span class="score-pred">likely 3–2</span>
     <span class="conf" data-confidence="43">43% confidence</span>
   </div>
 
@@ -4391,9 +4534,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575368" data-status="NS" data-snapshot="{&quot;id&quot;: 575368, &quot;home&quot;: &quot;Como 1907&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/7397.png&quot;, &quot;away&quot;: &quot;Manchester United FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/66.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T16:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Como 1907 win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="575368" data-status="NS" data-snapshot="{&quot;id&quot;: 575368, &quot;home&quot;: &quot;Como 1907&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/7397.png&quot;, &quot;away&quot;: &quot;Manchester United FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/66.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T16:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Como 1907 win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T16:45:00+00:00">Wed 21 Oct · 16:45 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T16:45:00+00:00">Wed 21 Oct · 16:45 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="7397" data-away-id="66"
@@ -4433,7 +4579,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Como 1907 win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="44">44% confidence</span>
   </div>
 
@@ -4514,7 +4660,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575369" data-status="NS" data-snapshot="{&quot;id&quot;: 575369, &quot;home&quot;: &quot;Lille OSC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/521.png&quot;, &quot;away&quot;: &quot;Galatasaray SK&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/610.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T16:45:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Lille OSC win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T16:45:00+00:00">Wed 21 Oct · 16:45 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T16:45:00+00:00">Wed 21 Oct · 16:45 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="521" data-away-id="610"
@@ -4635,7 +4784,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575370" data-status="NS" data-snapshot="{&quot;id&quot;: 575370, &quot;home&quot;: &quot;Real Madrid CF&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/86.png&quot;, &quot;away&quot;: &quot;RB Leipzig&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/721.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Real Madrid CF win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="86" data-away-id="721"
@@ -4754,9 +4906,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575371" data-status="NS" data-snapshot="{&quot;id&quot;: 575371, &quot;home&quot;: &quot;FC Internazionale Milano&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/108.png&quot;, &quot;away&quot;: &quot;FK Shakhtar Donetsk&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/1887.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;FC Internazionale Milano win&quot;, &quot;likelyScore&quot;: &quot;1\u20131&quot;}">
+<article class="match" data-id="575371" data-status="NS" data-snapshot="{&quot;id&quot;: 575371, &quot;home&quot;: &quot;FC Internazionale Milano&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/108.png&quot;, &quot;away&quot;: &quot;FK Shakhtar Donetsk&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/1887.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;FC Internazionale Milano win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="108" data-away-id="1887"
@@ -4796,7 +4951,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">FC Internazionale Milano win</span>
-    <span class="score-pred">likely 1–1</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="40">40% confidence</span>
   </div>
 
@@ -4877,7 +5032,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575372" data-status="NS" data-snapshot="{&quot;id&quot;: 575372, &quot;home&quot;: &quot;FC Bayern M\u00fcnchen&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/5.png&quot;, &quot;away&quot;: &quot;Arsenal FC&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/57.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;FC Bayern M\u00fcnchen win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="5" data-away-id="57"
@@ -4996,9 +5154,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575373" data-status="NS" data-snapshot="{&quot;id&quot;: 575373, &quot;home&quot;: &quot;Club Brugge KV&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/851.png&quot;, &quot;away&quot;: &quot;Racing Club de Lens&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/546.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Club Brugge KV win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
+<article class="match" data-id="575373" data-status="NS" data-snapshot="{&quot;id&quot;: 575373, &quot;home&quot;: &quot;Club Brugge KV&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/851.png&quot;, &quot;away&quot;: &quot;Racing Club de Lens&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/546.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Club Brugge KV win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="851" data-away-id="546"
@@ -5038,7 +5199,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Club Brugge KV win</span>
-    <span class="score-pred">likely 2–2</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="46">46% confidence</span>
   </div>
 
@@ -5119,7 +5280,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575374" data-status="NS" data-snapshot="{&quot;id&quot;: 575374, &quot;home&quot;: &quot;Aston Villa FC&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/58.png&quot;, &quot;away&quot;: &quot;Viking FK&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/5720.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Aston Villa FC win&quot;, &quot;likelyScore&quot;: &quot;3\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="58" data-away-id="5720"
@@ -5240,7 +5404,10 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 </article>
 <article class="match" data-id="575375" data-status="NS" data-snapshot="{&quot;id&quot;: 575375, &quot;home&quot;: &quot;Sporting Clube de Portugal&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/498.png&quot;, &quot;away&quot;: &quot;LASK Linz&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/2016.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Sporting Clube de Portugal win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="498" data-away-id="2016"
@@ -5359,9 +5526,12 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
     </div>
   </details>
 </article>
-<article class="match" data-id="575376" data-status="NS" data-snapshot="{&quot;id&quot;: 575376, &quot;home&quot;: &quot;Real Betis Balompi\u00e9&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/90.png&quot;, &quot;away&quot;: &quot;Feyenoord Rotterdam&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/675.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Real Betis Balompi\u00e9 win&quot;, &quot;likelyScore&quot;: &quot;2\u20132&quot;}">
+<article class="match" data-id="575376" data-status="NS" data-snapshot="{&quot;id&quot;: 575376, &quot;home&quot;: &quot;Real Betis Balompi\u00e9&quot;, &quot;homeLogo&quot;: &quot;https://crests.football-data.org/90.png&quot;, &quot;away&quot;: &quot;Feyenoord Rotterdam&quot;, &quot;awayLogo&quot;: &quot;https://crests.football-data.org/675.png&quot;, &quot;league&quot;: &quot;UEFA Champions League&quot;, &quot;leagueCode&quot;: &quot;CL&quot;, &quot;kickoff&quot;: &quot;2026-10-21T19:00:00+00:00&quot;, &quot;status&quot;: &quot;NS&quot;, &quot;finalScore&quot;: &quot;&quot;, &quot;verdict&quot;: &quot;Real Betis Balompi\u00e9 win&quot;, &quot;likelyScore&quot;: &quot;2\u20131&quot;}">
   <div class="match-top">
-    <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+    <div class="match-top-left">
+      <span class="kickoff" data-utc="2026-10-21T19:00:00+00:00">Wed 21 Oct · 19:00 UTC</span>
+      <span class="status-badge"></span>
+    </div>
     <div class="match-top-right">
       <button class="tbl-btn year-btn" data-league="CL" data-kind="prev"
         data-home-id="90" data-away-id="675"
@@ -5401,7 +5571,7 @@ footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
 
   <div class="verdict">
     <span class="pick">Real Betis Balompié win</span>
-    <span class="score-pred">likely 2–2</span>
+    <span class="score-pred">likely 2–1</span>
     <span class="conf" data-confidence="41">41% confidence</span>
   </div>
 
@@ -5623,6 +5793,66 @@ Not betting advice. Updated daily.</footer>
     });
   }
 
+  // ---- live/finished/upcoming classification ----
+  // The page is only as fresh as the last cron run, so a match's baked-in
+  // status (data-status) can go stale mid-match or after full time. Instead,
+  // classify from kickoff time vs right now: before kickoff = upcoming;
+  // within a generous match-length window after kickoff = live; past that
+  // window = finished, even if data-status never got updated to FT. An
+  // already-FT status (known-finished as of generation) always wins.
+  var FINISHED_STATUSES = {FT: 1, AET: 1, PEN: 1};
+  var LIVE_WINDOW_MS = 130 * 60 * 1000; // ~2h10m: regulation + HT + stoppage
+
+  function classifyMatchTiming(kickoffIso, bakedStatus){
+    if (FINISHED_STATUSES[bakedStatus]) return 'finished';
+    var kickoff = new Date(kickoffIso).getTime();
+    var now = Date.now();
+    if (now < kickoff) return 'upcoming';
+    if (now <= kickoff + LIVE_WINDOW_MS) return 'live';
+    return 'finished';
+  }
+
+  function applyMatchTiming(){
+    document.querySelectorAll('.match[data-status]').forEach(function(el){
+      var kickoffEl = el.querySelector('.kickoff[data-utc]');
+      var badge = el.querySelector('.status-badge');
+      if (!kickoffEl) return;
+      var state = classifyMatchTiming(kickoffEl.getAttribute('data-utc'), el.getAttribute('data-status'));
+      el.classList.remove('m-upcoming', 'm-live', 'm-finished');
+      el.classList.add('m-' + state);
+      if (!badge) return;
+      if (state === 'live') { badge.textContent = '● LIVE'; badge.className = 'status-badge live'; }
+      else if (state === 'finished') { badge.textContent = 'FT'; badge.className = 'status-badge finished'; }
+      else { badge.textContent = ''; badge.className = 'status-badge'; }
+    });
+    reorderMatchBuckets();
+  }
+
+  // Within each league section: live matches first, then not-started, then
+  // finished — each bucket keeping its existing kickoff-ascending order
+  // (the server already sorts matches that way, and Array#filter is stable,
+  // so partitioning alone preserves it without re-sorting). No separators
+  // between buckets, just the grouping/order. Re-run alongside
+  // applyMatchTiming() so a match moving from live -> finished also moves
+  // to the right spot in the list without a reload.
+  function reorderMatchBuckets(){
+    document.querySelectorAll('.league-section').forEach(function(sec){
+      var matches = Array.prototype.slice.call(sec.children).filter(function(el){
+        return el.classList.contains('match');
+      });
+      if (!matches.length) return;
+      var live = matches.filter(function(el){ return el.classList.contains('m-live'); });
+      var finished = matches.filter(function(el){ return el.classList.contains('m-finished'); });
+      var upcoming = matches.filter(function(el){
+        return !el.classList.contains('m-live') && !el.classList.contains('m-finished');
+      });
+      live.concat(upcoming, finished).forEach(function(el){ sec.appendChild(el); });
+    });
+  }
+
+  applyMatchTiming();
+  setInterval(applyMatchTiming, 60000);
+
   function applyTheme(choice){
     if (choice === 'light' || choice === 'dark') {
       document.documentElement.setAttribute('data-theme', choice);
@@ -5770,7 +6000,14 @@ Not betting advice. Updated daily.</footer>
     ids.forEach(function(id){
       var s = store[id];
       var card = cardFor(id, s);
-      if (FINISHED[s.status]) previousEl.appendChild(card);
+      // Use the same live kickoff-time classification as the card's own
+      // badge, not the possibly-stale status captured when bookmarked —
+      // otherwise a match can show "FT" on the card while still sitting
+      // in the Upcoming bucket.
+      var finished = s.kickoff
+        ? classifyMatchTiming(s.kickoff, s.status) === 'finished'
+        : FINISHED[s.status];
+      if (finished) previousEl.appendChild(card);
       else upcomingEl.appendChild(card);
     });
     var any = ids.length > 0;
@@ -5782,6 +6019,7 @@ Not betting advice. Updated daily.</footer>
       ids.length + ' fixture' + (ids.length !== 1 ? 's' : '');
     observeMatches();
     updateSectionNav();
+    applyMatchTiming();
   }
 
   renderBookmarks();
@@ -5792,12 +6030,14 @@ Not betting advice. Updated daily.</footer>
   // toggle — opening a 'cur' table closes whichever 'cur' table was open
   // before, regardless of which match/league triggered it, and likewise for
   // 'prev' — but the two tracks don't affect each other, so both can be open
-  // at once. Per-match buttons both float to the right (prev chains off
-  // cur's edge); league-bar buttons instead split left ('cur') / right
-  // ('prev') since they share no single anchor to chain against.
+  // at once. Per-match buttons float the table beside the card (to the
+  // right; prev chains off cur's edge if both are open). League-bar buttons
+  // show the table inline, centered below the bar — cur always on the left
+  // of that row, prev always on the right, via CSS order (fixed regardless
+  // of which was opened first).
   var garage = document.getElementById('table-garage');
   var NARROW = 720;
-  var activeByKind = {cur: null, prev: null}; // {code, btn, mode, anchorEl, side}
+  var activeByKind = {cur: null, prev: null}; // {code, btn, mode, anchorEl}
 
   // Prev/next section nav: every .page-section (league sections, Bookmarks,
   // and any section added later) gets links to jump to its neighbor among
@@ -5819,6 +6059,25 @@ Not betting advice. Updated daily.</footer>
   }
   updateSectionNav();
 
+  // Highlight whichever section's pill matches the section currently
+  // centered in the viewport, in the fixed side nav.
+  if ('IntersectionObserver' in window) {
+    var navPillsBySection = {};
+    document.querySelectorAll('.side-nav .pill').forEach(function(p){
+      var href = p.getAttribute('href');
+      if (href) navPillsBySection[href.slice(1)] = p;
+    });
+    var activeSectionObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var pill = navPillsBySection[entry.target.id];
+        if (pill) pill.classList.toggle('active', entry.isIntersecting);
+      });
+    }, {rootMargin: '-40% 0px -40% 0px', threshold: 0});
+    document.querySelectorAll('.page-section').forEach(function(sec){
+      activeSectionObserver.observe(sec);
+    });
+  }
+
   function clearHighlight(tableWrap){
     tableWrap.querySelectorAll('.hl-home,.hl-away').forEach(function(r){
       r.classList.remove('hl-home', 'hl-away');
@@ -5834,44 +6093,29 @@ Not betting advice. Updated daily.</footer>
     tableWrap.style.marginTop = '';
   }
 
-  // Per-match buttons float both kinds to the right (prev chains off cur's
-  // right edge if both are open). League-bar buttons instead split across
-  // the page: 'cur' floats in the left gutter, 'prev' in the right gutter —
-  // so they never need to chain off each other.
-  function positionFloatingRight(tableWrap, anchorEl){
+  // Per-match floating tables sit beside the match card, to the right —
+  // prev chains off cur's right edge if both are open for that same match.
+  function positionFloating(tableWrap, matchEl){
     var wrapEl = document.querySelector('.wrap');
-    var aRect = anchorEl.getBoundingClientRect();
+    var mRect = matchEl.getBoundingClientRect();
     var wRect = wrapEl.getBoundingClientRect();
     var gap = 16;
     var avail = window.innerWidth - (wRect.right + window.scrollX) - gap - 12;
     var w = Math.max(260, Math.min(480, avail));
     tableWrap.style.position = 'absolute';
-    tableWrap.style.top = (aRect.top + window.scrollY) + 'px';
+    tableWrap.style.top = (mRect.top + window.scrollY) + 'px';
     tableWrap.style.left = (wRect.right + window.scrollX + gap) + 'px';
     tableWrap.style.width = w + 'px';
   }
 
-  function positionFloatingLeft(tableWrap, anchorEl){
-    var wrapEl = document.querySelector('.wrap');
-    var aRect = anchorEl.getBoundingClientRect();
-    var wRect = wrapEl.getBoundingClientRect();
-    var gap = 16;
-    var avail = wRect.left + window.scrollX - gap - 12;
-    var w = Math.max(260, Math.min(480, avail));
-    tableWrap.style.position = 'absolute';
-    tableWrap.style.top = (aRect.top + window.scrollY) + 'px';
-    tableWrap.style.left = (wRect.left + window.scrollX - gap - w) + 'px';
-    tableWrap.style.width = w + 'px';
-  }
-
-  function positionChained(tableWrap, anchorEl, leftOfEl){
+  function positionChained(tableWrap, matchEl, leftOfEl){
     var lRect = leftOfEl.getBoundingClientRect();
-    var aRect = anchorEl.getBoundingClientRect();
+    var mRect = matchEl.getBoundingClientRect();
     var gap = 16;
     var avail = window.innerWidth - (lRect.right + window.scrollX) - gap - 12;
     var w = Math.max(220, Math.min(480, avail));
     tableWrap.style.position = 'absolute';
-    tableWrap.style.top = (aRect.top + window.scrollY) + 'px';
+    tableWrap.style.top = (mRect.top + window.scrollY) + 'px';
     tableWrap.style.left = (lRect.right + window.scrollX + gap) + 'px';
     tableWrap.style.width = w + 'px';
   }
@@ -5881,21 +6125,21 @@ Not betting advice. Updated daily.</footer>
     if (!prevState || prevState.mode !== 'floating') return;
     var prevWrap = document.getElementById('table-' + prevState.code + '-prev');
     if (!prevWrap) return;
-    if (prevState.side === 'left') { positionFloatingLeft(prevWrap, prevState.anchorEl); return; }
     var curState = activeByKind.cur;
-    var curWrap = curState && curState.mode === 'floating' && curState.side === 'right'
+    var curWrap = curState && curState.mode === 'floating'
       ? document.getElementById('table-' + curState.code + '-cur') : null;
     if (curWrap) positionChained(prevWrap, prevState.anchorEl, curWrap);
-    else positionFloatingRight(prevWrap, prevState.anchorEl);
+    else positionFloating(prevWrap, prevState.anchorEl);
   }
 
-  // Identifies "the same target" across kinds: the anchor element (a match
-  // card, or a league header for bar-level buttons). Opening any table
-  // closes every other currently-open table (both kinds) unless it belongs
-  // to this same target — that's what lets cur+prev coexist for one
+  // Identifies "the same target" across kinds: a match element for floating
+  // panels, or the league code for inline (league-bar) ones. Opening any
+  // table closes every other currently-open table (both kinds) unless it
+  // belongs to this same target — that's what lets cur+prev coexist for one
   // match/league while still closing everything else.
   function activeKey(state){
-    return state ? state.anchorEl : null;
+    if (!state) return null;
+    return state.mode === 'floating' ? state.anchorEl : ('L:' + state.code);
   }
 
   function closeOthersFor(newKey){
@@ -5919,11 +6163,28 @@ Not betting advice. Updated daily.</footer>
     if (kind === 'cur') repositionPrev();
   }
 
-  function openFloating(kind, code, anchorEl, btn, highlightIds, side){
-    side = side || 'right';
+  // League-bar buttons: table appears inline, centered below the bar. Both
+  // kinds share one flex row (.league-table-slot); CSS order keeps cur on
+  // the left and prev on the right no matter which was opened first.
+  function openInline(kind, code, targetSlot, btn){
     var tableWrap = document.getElementById('table-' + code + '-' + kind);
-    if (!tableWrap || !anchorEl) return;
-    var newKey = anchorEl;
+    if (!tableWrap || !targetSlot) return;
+    var newKey = 'L:' + code;
+    var state = activeByKind[kind];
+    var reopening = state && state.code === code && state.btn === btn;
+    closeOthersFor(newKey);
+    closeActive(kind);
+    if (reopening) return;
+    resetFloatStyles(tableWrap);
+    targetSlot.appendChild(tableWrap);
+    btn.classList.add('on');
+    activeByKind[kind] = {code: code, btn: btn, mode: 'inline', anchorEl: null};
+  }
+
+  function openFloating(kind, code, matchEl, btn, highlightIds){
+    var tableWrap = document.getElementById('table-' + code + '-' + kind);
+    if (!tableWrap || !matchEl) return;
+    var newKey = matchEl;
     var state = activeByKind[kind];
     var reopening = state && state.code === code && state.btn === btn;
     closeOthersFor(newKey);
@@ -5932,27 +6193,23 @@ Not betting advice. Updated daily.</footer>
 
     tableWrap.classList.add('floating');
     if (window.innerWidth < NARROW) {
-      var afterEl = anchorEl;
-      if (side === 'right') {
-        var curState = activeByKind.cur;
-        var curWrap = kind === 'prev' && curState && curState.side === 'right'
-          ? document.getElementById('table-' + curState.code + '-cur') : null;
-        if (curWrap && curWrap.style.position !== 'absolute') afterEl = curWrap;
-      }
+      var afterEl = matchEl;
+      var curState = activeByKind.cur;
+      var curWrap = kind === 'prev' && curState
+        ? document.getElementById('table-' + curState.code + '-cur') : null;
+      if (curWrap && curWrap.style.position !== 'absolute') afterEl = curWrap;
       afterEl.insertAdjacentElement('afterend', tableWrap);
       tableWrap.style.marginTop = '14px';
     } else {
       document.body.appendChild(tableWrap);
-      if (side === 'left') {
-        positionFloatingLeft(tableWrap, anchorEl);
-      } else if (kind === 'prev') {
+      if (kind === 'prev') {
         var cs = activeByKind.cur;
-        var cw = cs && cs.mode === 'floating' && cs.side === 'right'
+        var cw = cs && cs.mode === 'floating'
           ? document.getElementById('table-' + cs.code + '-cur') : null;
-        if (cw) positionChained(tableWrap, anchorEl, cw);
-        else positionFloatingRight(tableWrap, anchorEl);
+        if (cw) positionChained(tableWrap, matchEl, cw);
+        else positionFloating(tableWrap, matchEl);
       } else {
-        positionFloatingRight(tableWrap, anchorEl);
+        positionFloating(tableWrap, matchEl);
       }
     }
     clearHighlight(tableWrap);
@@ -5963,7 +6220,7 @@ Not betting advice. Updated daily.</footer>
       if (arow) arow.classList.add('hl-away');
     }
     btn.classList.add('on');
-    activeByKind[kind] = {code: code, btn: btn, mode: 'floating', anchorEl: anchorEl, side: side};
+    activeByKind[kind] = {code: code, btn: btn, mode: 'floating', anchorEl: matchEl};
     if (kind === 'cur') repositionPrev();
   }
 
@@ -5994,8 +6251,7 @@ Not betting advice. Updated daily.</footer>
     if (toggleBtn) {
       var tcode = toggleBtn.getAttribute('data-league');
       var tkind = toggleBtn.getAttribute('data-kind');
-      var head = toggleBtn.closest('.league-head');
-      openFloating(tkind, tcode, head, toggleBtn, null, tkind === 'cur' ? 'left' : 'right');
+      openInline(tkind, tcode, document.getElementById('slot-' + tcode + '-header'), toggleBtn);
       return;
     }
 
@@ -6005,7 +6261,7 @@ Not betting advice. Updated daily.</footer>
       var kind = tblBtn.getAttribute('data-kind');
       var hid = tblBtn.getAttribute('data-home-id');
       var aid = tblBtn.getAttribute('data-away-id');
-      openFloating(kind, code, tblBtn.closest('.match'), tblBtn, [hid, aid], 'right');
+      openFloating(kind, code, tblBtn.closest('.match'), tblBtn, [hid, aid]);
       return;
     }
 
@@ -6026,10 +6282,7 @@ Not betting advice. Updated daily.</footer>
     var curState = activeByKind.cur;
     if (curState && curState.mode === 'floating') {
       var curWrap = document.getElementById('table-' + curState.code + '-cur');
-      if (curWrap) {
-        if (curState.side === 'left') positionFloatingLeft(curWrap, curState.anchorEl);
-        else positionFloatingRight(curWrap, curState.anchorEl);
-      }
+      if (curWrap) positionFloating(curWrap, curState.anchorEl);
     }
     repositionPrev();
   });
