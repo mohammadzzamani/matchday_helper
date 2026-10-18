@@ -1,8 +1,2837 @@
-<!doctype html>
-<html>
-<head><meta charset="utf-8"><title>Matchday Forecast</title></head>
-<body>
-<h1>Matchday Forecast</h1>
-<p>Placeholder — the daily agent will publish the real forecast page here.</p>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matchday Forecast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;650;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1411; --panel:#141d18; --panel-2:#1b2821;
+  --line:#26352c; --ink:#eaf2ec; --muted:#8aa094; --faint:#5f7268;
+  --home:#3ddc84; --draw:#d9b24a; --away:#4a9bdc;
+  --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);
+  line-height:1.5;-webkit-font-smoothing:antialiased;padding:0 0 80px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+header.top{padding:48px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.title{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.02em}
+.title .accent{color:var(--home)}
+.sub{color:var(--muted);margin-top:8px;font-size:15px}
+.meta{color:var(--faint);font-size:13px;margin-top:14px;font-family:var(--mono)}
+
+.league-head{display:flex;align-items:center;gap:10px;margin:36px 0 14px}
+.league-head img{width:22px;height:22px;object-fit:contain}
+.league-head h2{font-size:15px;font-weight:600;color:var(--muted)}
+.league-head .rule{flex:1;height:1px;background:var(--line)}
+
+.match{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:20px;margin-bottom:14px}
+.match-top{display:flex;justify-content:space-between;align-items:baseline;
+  gap:12px;margin-bottom:16px}
+.kickoff{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px}
+.team{display:flex;align-items:center;gap:10px}
+.team.away{justify-content:flex-end;text-align:right}
+.team img{width:34px;height:34px;object-fit:contain}
+.team .nm{font-weight:650;font-size:17px}
+.team .rk{font-size:12px;color:var(--faint);font-family:var(--mono)}
+.vs{font-size:22px;font-weight:800;color:var(--home)}
+.vs .score{font-size:13px;color:var(--muted);font-weight:500;display:block;
+  text-align:center;margin-top:2px}
+
+/* probability bar — the hero element */
+.prob{margin:18px 0 6px}
+.bar{display:flex;height:34px;border-radius:8px;overflow:hidden;
+  font-size:12px;font-weight:700;font-family:var(--mono)}
+.seg{display:flex;align-items:center;justify-content:center;color:#07140d;
+  min-width:30px;transition:none}
+.seg.h{background:var(--home)}
+.seg.d{background:var(--draw)}
+.seg.a{background:var(--away);color:#07151f}
+.prob-key{display:flex;justify-content:space-between;margin-top:7px;
+  font-size:11px;color:var(--faint);font-family:var(--mono)}
+
+.verdict{display:flex;align-items:center;gap:10px;margin-top:14px;
+  padding-top:14px;border-top:1px solid var(--line)}
+.verdict .pick{font-weight:700}
+.verdict .score-pred{font-family:var(--mono);color:var(--home)}
+.verdict .conf{margin-left:auto;font-size:12px;color:var(--faint);
+  font-family:var(--mono)}
+
+.detail{margin-top:14px;font-size:13px;color:var(--muted)}
+.detail summary{cursor:pointer;color:var(--faint);font-family:var(--mono);
+  font-size:12px;list-style:none;user-select:none}
+.detail summary::-webkit-details-marker{display:none}
+.detail summary:before{content:"+ stats";}
+.detail[open] summary:before{content:"− stats";}
+.statgrid{display:grid;grid-template-columns:1fr 70px 1fr;gap:6px 10px;
+  margin-top:14px;align-items:center}
+.statgrid .lbl{text-align:center;color:var(--faint);font-size:11px;
+  font-family:var(--mono)}
+.statgrid .hv{text-align:right;color:var(--ink)}
+.statgrid .av{text-align:left;color:var(--ink)}
+.form-str{font-family:var(--mono);letter-spacing:2px;font-weight:700}
+.form-str .W{color:var(--home)}.form-str .D{color:var(--draw)}
+.form-str .L{color:var(--away)}
+.h2h{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.h2h .row{display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:12px;color:var(--muted);padding:3px 0}
+.writeup{margin-top:12px;font-size:13.5px;color:var(--muted);line-height:1.6;
+  font-style:italic}
+
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+footer{text-align:center;color:var(--faint);font-size:12px;margin-top:50px;
+  font-family:var(--mono)}
+@media(max-width:560px){
+  .team .nm{font-size:15px}.teams{gap:8px}
+}
+</style></head>
+<body><div class="wrap">
+<header class="top">
+  <div class="title">Matchday <span class="accent">Forecast</span></div>
+  <div class="sub">Model-based previews for the next few days across Europe's major competitions.</div>
+  <div class="meta">42 fixtures · generated Sunday 18 October 2026, 06:30 UTC</div>
+</header>
+<div class="league-head"><img src="https://crests.football-data.org/PL.png" alt=""><h2>Premier League</h2><div class="rule"></div></div>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 13:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/bournemouth.png" alt="" loading="lazy">
+      <div><div class="nm">AFC Bournemouth</div>
+      <div class="rk">#6</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Sunderland AFC</div>
+      <div class="rk">#7</div></div>
+      <img src="https://crests.football-data.org/71.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:42.6%">43</div>
+      <div class="seg d" style="width:22.9%">23</div>
+      <div class="seg a" style="width:34.5%">34</div>
+    </div>
+    <div class="prob-key">
+      <span>AFC Bournemouth win</span>
+      <span>draw</span>
+      <span>Sunderland AFC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">AFC Bournemouth win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">43% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. AFC Bournemouth come in on L L D D D form, Sunderland AFC on L L L D W. Recent meetings: 0W · 2D · 0L (last 2). Model expects roughly 1.76–1.56 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="L">L</span> <span class="D">D</span> <span class="D">D</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span> <span class="L">L</span> <span class="D">D</span> <span class="W">W</span></div>
+
+      <div class="hv">1.53</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.11</div>
+
+      <div class="hv">1.42</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.26</div>
+
+      <div class="hv">1.76</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.56</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 2)</span></div>
+      <div class="row"><span>2026-02-28</span><span>AFC Bournemouth 1–1 Sunderland AFC</span></div><div class="row"><span>2025-11-29</span><span>Sunderland AFC 3–2 AFC Bournemouth</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 13:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/341.png" alt="" loading="lazy">
+      <div><div class="nm">Leeds United FC</div>
+      <div class="rk">#14</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Manchester United FC</div>
+      <div class="rk">#3</div></div>
+      <img src="https://crests.football-data.org/66.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:36.8%">37</div>
+      <div class="seg d" style="width:24.0%">24</div>
+      <div class="seg a" style="width:39.3%">39</div>
+    </div>
+    <div class="prob-key">
+      <span>Leeds United FC win</span>
+      <span>draw</span>
+      <span>Manchester United FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Manchester United FC win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">39% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Leeds United FC come in on L D W D D form, Manchester United FC on L D D L W. Recent meetings: 0W · 2D · 0L (last 6). Model expects roughly 1.51–1.57 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="D">D</span> <span class="W">W</span> <span class="D">D</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="D">D</span> <span class="D">D</span> <span class="L">L</span> <span class="W">W</span></div>
+
+      <div class="hv">1.29</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.82</div>
+
+      <div class="hv">1.47</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.32</div>
+
+      <div class="hv">1.51</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.57</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-04-13</span><span>Manchester United FC 1–2 Leeds United FC</span></div><div class="row"><span>2026-01-04</span><span>Leeds United FC 1–1 Manchester United FC</span></div><div class="row"><span>2023-02-12</span><span>Leeds United FC 0–2 Manchester United FC</span></div><div class="row"><span>2023-02-08</span><span>Manchester United FC 2–2 Leeds United FC</span></div><div class="row"><span>2022-02-20</span><span>Leeds United FC 2–4 Manchester United FC</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 13:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/397.png" alt="" loading="lazy">
+      <div><div class="nm">Brighton &amp; Hove Albion FC</div>
+      <div class="rk">#8</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Crystal Palace FC</div>
+      <div class="rk">#15</div></div>
+      <img src="https://crests.football-data.org/354.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:54.3%">54</div>
+      <div class="seg d" style="width:21.5%">22</div>
+      <div class="seg a" style="width:24.2%">24</div>
+    </div>
+    <div class="prob-key">
+      <span>Brighton &amp; Hove Albion FC win</span>
+      <span>draw</span>
+      <span>Crystal Palace FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Brighton &amp; Hove Albion FC win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">54% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to Brighton &amp; Hove Albion FC. Brighton &amp; Hove Albion FC come in on W W W D L form, Crystal Palace FC on W D L W L. Recent meetings: 0W · 2D · 0L (last 6). Model expects roughly 2.04–1.3 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="D">D</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="D">D</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span></div>
+
+      <div class="hv">1.37</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.08</div>
+
+      <div class="hv">1.21</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.34</div>
+
+      <div class="hv">2.04</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.3</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-02-08</span><span>Brighton &amp; Hove Albion FC 0–1 Crystal Palace FC</span></div><div class="row"><span>2025-11-09</span><span>Crystal Palace FC 0–0 Brighton &amp; Hove Albion FC</span></div><div class="row"><span>2025-04-05</span><span>Crystal Palace FC 2–1 Brighton &amp; Hove Albion FC</span></div><div class="row"><span>2024-12-15</span><span>Brighton &amp; Hove Albion FC 1–3 Crystal Palace FC</span></div><div class="row"><span>2024-02-03</span><span>Brighton &amp; Hove Albion FC 4–1 Crystal Palace FC</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 15:30 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/351.png" alt="" loading="lazy">
+      <div><div class="nm">Nottingham Forest FC</div>
+      <div class="rk">#16</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Arsenal FC</div>
+      <div class="rk">#1</div></div>
+      <img src="https://crests.football-data.org/57.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:25.8%">26</div>
+      <div class="seg d" style="width:25.2%">25</div>
+      <div class="seg a" style="width:48.9%">49</div>
+    </div>
+    <div class="prob-key">
+      <span>Nottingham Forest FC win</span>
+      <span>draw</span>
+      <span>Arsenal FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Arsenal FC win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">49% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans arsenal fc win. Nottingham Forest FC come in on L L W D D form, Arsenal FC on W W L W W. Recent meetings: 0W · 2D · 0L (last 6). Model expects roughly 1.07–1.57 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="L">L</span> <span class="W">W</span> <span class="D">D</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.26</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.87</div>
+
+      <div class="hv">1.34</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">0.71</div>
+
+      <div class="hv">1.07</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.57</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-01-17</span><span>Nottingham Forest FC 0–0 Arsenal FC</span></div><div class="row"><span>2025-09-13</span><span>Arsenal FC 3–0 Nottingham Forest FC</span></div><div class="row"><span>2025-02-26</span><span>Nottingham Forest FC 0–0 Arsenal FC</span></div><div class="row"><span>2024-11-23</span><span>Arsenal FC 3–0 Nottingham Forest FC</span></div><div class="row"><span>2024-01-30</span><span>Nottingham Forest FC 1–2 Arsenal FC</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Mon 19 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/73.png" alt="" loading="lazy">
+      <div><div class="nm">Tottenham Hotspur FC</div>
+      <div class="rk">#17</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Coventry City FC</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/1076.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:42.0%">42</div>
+      <div class="seg d" style="width:25.5%">26</div>
+      <div class="seg a" style="width:32.5%">32</div>
+    </div>
+    <div class="prob-key">
+      <span>Tottenham Hotspur FC win</span>
+      <span>draw</span>
+      <span>Coventry City FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Tottenham Hotspur FC win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">42% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Tottenham Hotspur FC come in on D L D D L form, Coventry City FC on W W L L L. Recent meetings: No recent meetings. Model expects roughly 1.47–1.26 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="D">D</span> <span class="L">L</span> <span class="D">D</span> <span class="D">D</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">1.26</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.50</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.47</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.26</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+<div class="league-head"><img src="https://crests.football-data.org/laliga.png" alt=""><h2>La Liga</h2><div class="rule"></div></div>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 12:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/79.png" alt="" loading="lazy">
+      <div><div class="nm">CA Osasuna</div>
+      <div class="rk">#16</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Real Racing Club de Santander</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/5335.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:41.9%">42</div>
+      <div class="seg d" style="width:21.2%">21</div>
+      <div class="seg a" style="width:36.8%">37</div>
+    </div>
+    <div class="prob-key">
+      <span>CA Osasuna win</span>
+      <span>draw</span>
+      <span>Real Racing Club de Santander win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">CA Osasuna win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">42% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. CA Osasuna come in on L D L L L form, Real Racing Club de Santander on D L L W L. Recent meetings: No recent meetings. Model expects roughly 1.99–1.86 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="D">D</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="L">L</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span></div>
+
+      <div class="hv">1.16</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.32</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.99</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.86</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 14:15 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/558.png" alt="" loading="lazy">
+      <div><div class="nm">RC Celta de Vigo</div>
+      <div class="rk">#6</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Deportivo Alavés</div>
+      <div class="rk">#14</div></div>
+      <img src="https://crests.football-data.org/263.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:48.6%">49</div>
+      <div class="seg d" style="width:24.4%">24</div>
+      <div class="seg a" style="width:26.9%">27</div>
+    </div>
+    <div class="prob-key">
+      <span>RC Celta de Vigo win</span>
+      <span>draw</span>
+      <span>Deportivo Alavés win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">RC Celta de Vigo win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">49% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans rc celta de vigo win. RC Celta de Vigo come in on D W D D D form, Deportivo Alavés on L D L L W. Recent meetings: 0W · 2D · 0L (last 6). Model expects roughly 1.65–1.16 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="D">D</span> <span class="W">W</span> <span class="D">D</span> <span class="D">D</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="D">D</span> <span class="L">L</span> <span class="L">L</span> <span class="W">W</span></div>
+
+      <div class="hv">1.39</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.16</div>
+
+      <div class="hv">1.26</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.47</div>
+
+      <div class="hv">1.65</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.16</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-03-22</span><span>RC Celta de Vigo 3–4 Deportivo Alavés</span></div><div class="row"><span>2025-11-22</span><span>Deportivo Alavés 0–1 RC Celta de Vigo</span></div><div class="row"><span>2025-01-27</span><span>Deportivo Alavés 1–1 RC Celta de Vigo</span></div><div class="row"><span>2024-08-16</span><span>RC Celta de Vigo 2–1 Deportivo Alavés</span></div><div class="row"><span>2024-04-27</span><span>Deportivo Alavés 3–0 RC Celta de Vigo</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 16:30 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/84.png" alt="" loading="lazy">
+      <div><div class="nm">Málaga CF</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Real Sociedad de Fútbol</div>
+      <div class="rk">#10</div></div>
+      <img src="https://crests.football-data.org/92.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:40.6%">41</div>
+      <div class="seg d" style="width:24.2%">24</div>
+      <div class="seg a" style="width:35.2%">35</div>
+    </div>
+    <div class="prob-key">
+      <span>Málaga CF win</span>
+      <span>draw</span>
+      <span>Real Sociedad de Fútbol win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Málaga CF win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">41% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Málaga CF come in on D L L D D form, Real Sociedad de Fútbol on W W L W D. Recent meetings: No recent meetings. Model expects roughly 1.58–1.45 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="D">D</span> <span class="L">L</span> <span class="L">L</span> <span class="D">D</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="D">D</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.55</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.61</div>
+
+      <div class="hv">1.58</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.45</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/86.png" alt="" loading="lazy">
+      <div><div class="nm">Real Madrid CF</div>
+      <div class="rk">#2</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Sevilla FC</div>
+      <div class="rk">#15</div></div>
+      <img src="https://crests.football-data.org/559.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:59.9%">60</div>
+      <div class="seg d" style="width:20.4%">20</div>
+      <div class="seg a" style="width:19.7%">20</div>
+    </div>
+    <div class="prob-key">
+      <span>Real Madrid CF win</span>
+      <span>draw</span>
+      <span>Sevilla FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Real Madrid CF win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">60% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to Real Madrid CF. Real Madrid CF come in on W W L W W form, Sevilla FC on D L W W D. Recent meetings: 0W · 1D · 0L (last 6). Model expects roughly 2.15–1.15 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="D">D</span></div>
+
+      <div class="hv">2.03</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.21</div>
+
+      <div class="hv">0.92</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.58</div>
+
+      <div class="hv">2.15</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.15</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-05-17</span><span>Sevilla FC 0–1 Real Madrid CF</span></div><div class="row"><span>2025-12-20</span><span>Real Madrid CF 2–0 Sevilla FC</span></div><div class="row"><span>2025-05-18</span><span>Sevilla FC 0–2 Real Madrid CF</span></div><div class="row"><span>2024-12-22</span><span>Real Madrid CF 4–2 Sevilla FC</span></div><div class="row"><span>2024-02-25</span><span>Real Madrid CF 1–0 Sevilla FC</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Mon 19 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/82.png" alt="" loading="lazy">
+      <div><div class="nm">Getafe CF</div>
+      <div class="rk">#7</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Rayo Vallecano de Madrid</div>
+      <div class="rk">#8</div></div>
+      <img src="https://crests.football-data.org/87.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:39.5%">40</div>
+      <div class="seg d" style="width:26.4%">26</div>
+      <div class="seg a" style="width:34.1%">34</div>
+    </div>
+    <div class="prob-key">
+      <span>Getafe CF win</span>
+      <span>draw</span>
+      <span>Rayo Vallecano de Madrid win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Getafe CF win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">40% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Getafe CF come in on L W L D D form, Rayo Vallecano de Madrid on D W L W L. Recent meetings: 0W · 3D · 0L (last 6). Model expects roughly 1.35–1.24 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="D">D</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span></div>
+
+      <div class="hv">0.84</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.08</div>
+
+      <div class="hv">1.00</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.16</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.24</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 3D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-05-03</span><span>Getafe CF 0–2 Rayo Vallecano de Madrid</span></div><div class="row"><span>2026-01-02</span><span>Rayo Vallecano de Madrid 1–1 Getafe CF</span></div><div class="row"><span>2025-05-02</span><span>Rayo Vallecano de Madrid 1–0 Getafe CF</span></div><div class="row"><span>2024-08-24</span><span>Getafe CF 0–0 Rayo Vallecano de Madrid</span></div><div class="row"><span>2024-04-13</span><span>Rayo Vallecano de Madrid 0–0 Getafe CF</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 18:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/88.png" alt="" loading="lazy">
+      <div><div class="nm">Levante UD</div>
+      <div class="rk">#18</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Athletic Club</div>
+      <div class="rk">#12</div></div>
+      <img src="https://crests.football-data.org/77.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:29.2%">29</div>
+      <div class="seg d" style="width:24.3%">24</div>
+      <div class="seg a" style="width:46.5%">46</div>
+    </div>
+    <div class="prob-key">
+      <span>Levante UD win</span>
+      <span>draw</span>
+      <span>Athletic Club win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Athletic Club win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">46% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans athletic club win. Levante UD come in on D D L L D form, Athletic Club on D D D W W. Recent meetings: 0W · 2D · 0L (last 5). Model expects roughly 1.25–1.64 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="D">D</span> <span class="D">D</span> <span class="L">L</span> <span class="L">L</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="D">D</span> <span class="D">D</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.24</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.13</div>
+
+      <div class="hv">1.61</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.53</div>
+
+      <div class="hv">1.25</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.64</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 5)</span></div>
+      <div class="row"><span>2026-02-08</span><span>Athletic Club 4–2 Levante UD</span></div><div class="row"><span>2025-11-29</span><span>Levante UD 0–2 Athletic Club</span></div><div class="row"><span>2022-03-07</span><span>Athletic Club 3–1 Levante UD</span></div><div class="row"><span>2021-11-19</span><span>Levante UD 0–0 Athletic Club</span></div><div class="row"><span>2021-02-26</span><span>Levante UD 1–1 Athletic Club</span></div>
+    </div>
+  </details>
+</article>
+<div class="league-head"><img src="https://crests.football-data.org/c111.png" alt=""><h2>Serie A</h2><div class="rule"></div></div>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 10:30 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/115.png" alt="" loading="lazy">
+      <div><div class="nm">Udinese Calcio</div>
+      <div class="rk">#10</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">US Lecce</div>
+      <div class="rk">#17</div></div>
+      <img src="https://crests.football-data.org/5890.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:52.5%">52</div>
+      <div class="seg d" style="width:22.5%">22</div>
+      <div class="seg a" style="width:25.0%">25</div>
+    </div>
+    <div class="prob-key">
+      <span>Udinese Calcio win</span>
+      <span>draw</span>
+      <span>US Lecce win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Udinese Calcio win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">52% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans udinese calcio win. Udinese Calcio come in on L L L L W form, US Lecce on L L W L L. Recent meetings: 0W · 1D · 0L (last 6). Model expects roughly 1.89–1.24 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">1.18</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">0.74</div>
+
+      <div class="hv">1.26</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.32</div>
+
+      <div class="hv">1.89</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.24</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-02-08</span><span>US Lecce 2–1 Udinese Calcio</span></div><div class="row"><span>2025-10-25</span><span>Udinese Calcio 3–2 US Lecce</span></div><div class="row"><span>2025-02-21</span><span>US Lecce 0–1 Udinese Calcio</span></div><div class="row"><span>2024-10-05</span><span>Udinese Calcio 1–0 US Lecce</span></div><div class="row"><span>2024-05-13</span><span>US Lecce 0–2 Udinese Calcio</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 13:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/99.png" alt="" loading="lazy">
+      <div><div class="nm">ACF Fiorentina</div>
+      <div class="rk">#15</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Como 1907</div>
+      <div class="rk">#4</div></div>
+      <img src="https://crests.football-data.org/7397.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:35.0%">35</div>
+      <div class="seg d" style="width:24.1%">24</div>
+      <div class="seg a" style="width:40.9%">41</div>
+    </div>
+    <div class="prob-key">
+      <span>ACF Fiorentina win</span>
+      <span>draw</span>
+      <span>Como 1907 win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Como 1907 win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">41% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. ACF Fiorentina come in on L D W L L form, Como 1907 on L D L W W. Recent meetings: 0W · 0D · 0L (last 4). Model expects roughly 1.45–1.59 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="D">D</span> <span class="W">W</span> <span class="L">L</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="D">D</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.08</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.71</div>
+
+      <div class="hv">1.32</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">0.76</div>
+
+      <div class="hv">1.45</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.59</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 0D · 0L (last 4)</span></div>
+      <div class="row"><span>2026-02-14</span><span>Como 1907 1–2 ACF Fiorentina</span></div><div class="row"><span>2025-09-21</span><span>ACF Fiorentina 1–2 Como 1907</span></div><div class="row"><span>2025-02-16</span><span>ACF Fiorentina 0–2 Como 1907</span></div><div class="row"><span>2024-11-24</span><span>Como 1907 0–2 ACF Fiorentina</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 16:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/98.png" alt="" loading="lazy">
+      <div><div class="nm">AC Milan</div>
+      <div class="rk">#5</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Atalanta BC</div>
+      <div class="rk">#7</div></div>
+      <img src="https://crests.football-data.org/102.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:46.9%">47</div>
+      <div class="seg d" style="width:25.0%">25</div>
+      <div class="seg a" style="width:28.1%">28</div>
+    </div>
+    <div class="prob-key">
+      <span>AC Milan win</span>
+      <span>draw</span>
+      <span>Atalanta BC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">AC Milan win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">47% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans ac milan win. AC Milan come in on D W D D W form, Atalanta BC on W L L L W. Recent meetings: 0W · 2D · 0L (last 5). Model expects roughly 1.58–1.17 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="D">D</span> <span class="W">W</span> <span class="D">D</span> <span class="D">D</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span> <span class="W">W</span></div>
+
+      <div class="hv">1.39</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.34</div>
+
+      <div class="hv">0.92</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">0.95</div>
+
+      <div class="hv">1.58</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.17</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 5)</span></div>
+      <div class="row"><span>2026-05-10</span><span>AC Milan 2–3 Atalanta BC</span></div><div class="row"><span>2025-10-28</span><span>Atalanta BC 1–1 AC Milan</span></div><div class="row"><span>2025-04-20</span><span>AC Milan 0–1 Atalanta BC</span></div><div class="row"><span>2024-12-06</span><span>Atalanta BC 2–1 AC Milan</span></div><div class="row"><span>2024-02-25</span><span>AC Milan 1–1 Atalanta BC</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 18:45 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/109.png" alt="" loading="lazy">
+      <div><div class="nm">Juventus FC</div>
+      <div class="rk">#6</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">SS Lazio</div>
+      <div class="rk">#9</div></div>
+      <img src="https://crests.football-data.org/110.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:42.5%">42</div>
+      <div class="seg d" style="width:25.8%">26</div>
+      <div class="seg a" style="width:31.7%">32</div>
+    </div>
+    <div class="prob-key">
+      <span>Juventus FC win</span>
+      <span>draw</span>
+      <span>SS Lazio win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Juventus FC win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">42% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Juventus FC come in on D W L D W form, SS Lazio on W W D W W. Recent meetings: 0W · 2D · 0L (last 4). Model expects roughly 1.46–1.22 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="D">D</span> <span class="W">W</span> <span class="L">L</span> <span class="D">D</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.61</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.08</div>
+
+      <div class="hv">0.89</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.05</div>
+
+      <div class="hv">1.46</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.22</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 4)</span></div>
+      <div class="row"><span>2026-02-08</span><span>Juventus FC 2–2 SS Lazio</span></div><div class="row"><span>2025-10-26</span><span>SS Lazio 1–0 Juventus FC</span></div><div class="row"><span>2025-05-10</span><span>SS Lazio 1–1 Juventus FC</span></div><div class="row"><span>2024-10-19</span><span>Juventus FC 1–0 SS Lazio</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Mon 19 Oct · 16:30 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/5911.png" alt="" loading="lazy">
+      <div><div class="nm">AC Monza</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Cagliari Calcio</div>
+      <div class="rk">#14</div></div>
+      <img src="https://crests.football-data.org/104.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:35.9%">36</div>
+      <div class="seg d" style="width:25.2%">25</div>
+      <div class="seg a" style="width:38.9%">39</div>
+    </div>
+    <div class="prob-key">
+      <span>AC Monza win</span>
+      <span>draw</span>
+      <span>Cagliari Calcio win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Cagliari Calcio win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">39% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. AC Monza come in on L W L D L form, Cagliari Calcio on D W W W L. Recent meetings: 0W · 1D · 0L (last 4). Model expects roughly 1.38–1.44 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="D">D</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="L">L</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.05</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.39</div>
+
+      <div class="hv">1.38</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.44</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 4)</span></div>
+      <div class="row"><span>2025-03-30</span><span>Cagliari Calcio 3–0 AC Monza</span></div><div class="row"><span>2025-01-05</span><span>AC Monza 1–2 Cagliari Calcio</span></div><div class="row"><span>2024-03-16</span><span>AC Monza 1–0 Cagliari Calcio</span></div><div class="row"><span>2023-11-26</span><span>Cagliari Calcio 1–1 AC Monza</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Mon 19 Oct · 18:45 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/112.png" alt="" loading="lazy">
+      <div><div class="nm">Parma Calcio 1913</div>
+      <div class="rk">#12</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Torino FC</div>
+      <div class="rk">#13</div></div>
+      <img src="https://crests.football-data.org/586.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:34.5%">34</div>
+      <div class="seg d" style="width:25.3%">25</div>
+      <div class="seg a" style="width:40.2%">40</div>
+    </div>
+    <div class="prob-key">
+      <span>Parma Calcio 1913 win</span>
+      <span>draw</span>
+      <span>Torino FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Torino FC win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">40% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Parma Calcio 1913 come in on L W L D L form, Torino FC on W D L W L. Recent meetings: 0W · 2D · 0L (last 6). Model expects roughly 1.33–1.46 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="D">D</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="D">D</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span></div>
+
+      <div class="hv">0.74</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.16</div>
+
+      <div class="hv">1.21</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.66</div>
+
+      <div class="hv">1.33</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.46</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-03-13</span><span>Torino FC 4–1 Parma Calcio 1913</span></div><div class="row"><span>2025-09-29</span><span>Parma Calcio 1913 2–1 Torino FC</span></div><div class="row"><span>2025-03-08</span><span>Parma Calcio 1913 2–2 Torino FC</span></div><div class="row"><span>2025-01-05</span><span>Torino FC 0–0 Parma Calcio 1913</span></div><div class="row"><span>2021-05-03</span><span>Torino FC 1–0 Parma Calcio 1913</span></div>
+    </div>
+  </details>
+</article>
+<div class="league-head"><img src="https://crests.football-data.org/BL1.png" alt=""><h2>Bundesliga</h2><div class="rule"></div></div>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 13:30 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/3.png" alt="" loading="lazy">
+      <div><div class="nm">Bayer 04 Leverkusen</div>
+      <div class="rk">#6</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">SC Freiburg</div>
+      <div class="rk">#7</div></div>
+      <img src="https://crests.football-data.org/17.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:48.7%">49</div>
+      <div class="seg d" style="width:20.3%">20</div>
+      <div class="seg a" style="width:31.0%">31</div>
+    </div>
+    <div class="prob-key">
+      <span>Bayer 04 Leverkusen win</span>
+      <span>draw</span>
+      <span>SC Freiburg win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Bayer 04 Leverkusen win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">49% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans bayer 04 leverkusen win. Bayer 04 Leverkusen come in on W W D W L form, SC Freiburg on W D W W W. Recent meetings: 0W · 2D · 0L (last 6). Model expects roughly 2.27–1.79 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="D">D</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">2.00</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.50</div>
+
+      <div class="hv">1.38</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.68</div>
+
+      <div class="hv">2.27</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.79</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-03-07</span><span>SC Freiburg 3–3 Bayer 04 Leverkusen</span></div><div class="row"><span>2025-10-26</span><span>Bayer 04 Leverkusen 2–0 SC Freiburg</span></div><div class="row"><span>2025-05-04</span><span>SC Freiburg 2–2 Bayer 04 Leverkusen</span></div><div class="row"><span>2024-12-21</span><span>Bayer 04 Leverkusen 5–1 SC Freiburg</span></div><div class="row"><span>2024-03-17</span><span>SC Freiburg 2–3 Bayer 04 Leverkusen</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 15:30 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/18.png" alt="" loading="lazy">
+      <div><div class="nm">Borussia Mönchengladbach</div>
+      <div class="rk">#12</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">TSG 1899 Hoffenheim</div>
+      <div class="rk">#5</div></div>
+      <img src="https://crests.football-data.org/2.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:37.4%">37</div>
+      <div class="seg d" style="width:19.7%">20</div>
+      <div class="seg a" style="width:42.9%">43</div>
+    </div>
+    <div class="prob-key">
+      <span>Borussia Mönchengladbach win</span>
+      <span>draw</span>
+      <span>TSG 1899 Hoffenheim win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">TSG 1899 Hoffenheim win</span>
+    <span class="score-pred">likely 2–2</span>
+    <span class="conf">43% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Borussia Mönchengladbach come in on L L L L L form, TSG 1899 Hoffenheim on L L W L L. Recent meetings: 0W · 1D · 0L (last 6). Model expects roughly 2.17–2.32 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">1.24</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.91</div>
+
+      <div class="hv">1.56</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.53</div>
+
+      <div class="hv">2.17</div>
+      <div class="lbl">model xG</div>
+      <div class="av">2.32</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-05-16</span><span>Borussia Mönchengladbach 4–0 TSG 1899 Hoffenheim</span></div><div class="row"><span>2026-01-14</span><span>TSG 1899 Hoffenheim 5–1 Borussia Mönchengladbach</span></div><div class="row"><span>2025-05-03</span><span>Borussia Mönchengladbach 4–4 TSG 1899 Hoffenheim</span></div><div class="row"><span>2024-12-21</span><span>TSG 1899 Hoffenheim 1–2 Borussia Mönchengladbach</span></div><div class="row"><span>2024-04-20</span><span>TSG 1899 Hoffenheim 4–3 Borussia Mönchengladbach</span></div>
+    </div>
+  </details>
+</article>
+<div class="league-head"><img src="https://crests.football-data.org/FL1.png" alt=""><h2>Ligue 1</h2><div class="rule"></div></div>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 13:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/532.png" alt="" loading="lazy">
+      <div><div class="nm">Angers SCO</div>
+      <div class="rk">#13</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Olympique de Marseille</div>
+      <div class="rk">#5</div></div>
+      <img src="https://crests.football-data.org/516.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:34.4%">34</div>
+      <div class="seg d" style="width:23.4%">23</div>
+      <div class="seg a" style="width:42.2%">42</div>
+    </div>
+    <div class="prob-key">
+      <span>Angers SCO win</span>
+      <span>draw</span>
+      <span>Olympique de Marseille win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Olympique de Marseille win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">42% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Angers SCO come in on L W D L W form, Olympique de Marseille on W L L L L. Recent meetings: 0W · 2D · 0L (last 6). Model expects roughly 1.51–1.69 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="D">D</span> <span class="L">L</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">0.85</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.85</div>
+
+      <div class="hv">1.41</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.32</div>
+
+      <div class="hv">1.51</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.69</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-01-17</span><span>Angers SCO 2–5 Olympique de Marseille</span></div><div class="row"><span>2025-10-29</span><span>Olympique de Marseille 2–2 Angers SCO</span></div><div class="row"><span>2025-02-09</span><span>Angers SCO 0–2 Olympique de Marseille</span></div><div class="row"><span>2024-10-04</span><span>Olympique de Marseille 1–1 Angers SCO</span></div><div class="row"><span>2023-05-14</span><span>Olympique de Marseille 3–1 Angers SCO</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 15:15 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/525.png" alt="" loading="lazy">
+      <div><div class="nm">FC Lorient</div>
+      <div class="rk">#9</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">AS Monaco FC</div>
+      <div class="rk">#7</div></div>
+      <img src="https://crests.football-data.org/548.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:40.4%">40</div>
+      <div class="seg d" style="width:23.0%">23</div>
+      <div class="seg a" style="width:36.6%">37</div>
+    </div>
+    <div class="prob-key">
+      <span>FC Lorient win</span>
+      <span>draw</span>
+      <span>AS Monaco FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">FC Lorient win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">40% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. FC Lorient come in on W L D W L form, AS Monaco FC on D W D W W. Recent meetings: 0W · 3D · 0L (last 6). Model expects roughly 1.7–1.61 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="L">L</span> <span class="D">D</span> <span class="W">W</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.41</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.76</div>
+
+      <div class="hv">1.50</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.59</div>
+
+      <div class="hv">1.7</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.61</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 3D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-01-16</span><span>AS Monaco FC 1–3 FC Lorient</span></div><div class="row"><span>2025-09-27</span><span>FC Lorient 3–1 AS Monaco FC</span></div><div class="row"><span>2024-03-17</span><span>AS Monaco FC 2–2 FC Lorient</span></div><div class="row"><span>2023-09-17</span><span>FC Lorient 2–2 AS Monaco FC</span></div><div class="row"><span>2023-04-16</span><span>AS Monaco FC 3–1 FC Lorient</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 15:15 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/1045.png" alt="" loading="lazy">
+      <div><div class="nm">Paris FC</div>
+      <div class="rk">#11</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Stade Rennais FC 1901</div>
+      <div class="rk">#6</div></div>
+      <img src="https://crests.football-data.org/529.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:39.7%">40</div>
+      <div class="seg d" style="width:24.1%">24</div>
+      <div class="seg a" style="width:36.3%">36</div>
+    </div>
+    <div class="prob-key">
+      <span>Paris FC win</span>
+      <span>draw</span>
+      <span>Stade Rennais FC 1901 win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Paris FC win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">40% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Paris FC come in on L W D W W form, Stade Rennais FC 1901 on W L W W W. Recent meetings: 0W · 2D · 0L (last 2). Model expects roughly 1.57–1.49 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.38</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.74</div>
+
+      <div class="hv">1.47</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.47</div>
+
+      <div class="hv">1.57</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.49</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 2D · 0L (last 2)</span></div>
+      <div class="row"><span>2026-05-10</span><span>Stade Rennais FC 1901 2–1 Paris FC</span></div><div class="row"><span>2025-11-07</span><span>Paris FC 0–1 Stade Rennais FC 1901</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 15:15 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/533.png" alt="" loading="lazy">
+      <div><div class="nm">Le Havre AC</div>
+      <div class="rk">#14</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">AJ Auxerre</div>
+      <div class="rk">#15</div></div>
+      <img src="https://crests.football-data.org/519.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:49.7%">50</div>
+      <div class="seg d" style="width:24.3%">24</div>
+      <div class="seg a" style="width:26.0%">26</div>
+    </div>
+    <div class="prob-key">
+      <span>Le Havre AC win</span>
+      <span>draw</span>
+      <span>AJ Auxerre win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Le Havre AC win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">50% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans le havre ac win. Le Havre AC come in on L L D L D form, AJ Auxerre on L W W L L. Recent meetings: 0W · 1D · 0L (last 4). Model expects roughly 1.67–1.14 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="L">L</span> <span class="D">D</span> <span class="L">L</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">0.94</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.00</div>
+
+      <div class="hv">1.29</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.29</div>
+
+      <div class="hv">1.67</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.14</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 4)</span></div>
+      <div class="row"><span>2026-04-05</span><span>Le Havre AC 1–1 AJ Auxerre</span></div><div class="row"><span>2025-10-26</span><span>AJ Auxerre 0–1 Le Havre AC</span></div><div class="row"><span>2025-05-04</span><span>AJ Auxerre 1–2 Le Havre AC</span></div><div class="row"><span>2024-09-01</span><span>Le Havre AC 3–1 AJ Auxerre</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Sun 18 Oct · 18:45 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/523.png" alt="" loading="lazy">
+      <div><div class="nm">Olympique Lyonnais</div>
+      <div class="rk">#4</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">OGC Nice</div>
+      <div class="rk">#16</div></div>
+      <img src="https://crests.football-data.org/522.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:60.3%">60</div>
+      <div class="seg d" style="width:21.9%">22</div>
+      <div class="seg a" style="width:17.9%">18</div>
+    </div>
+    <div class="prob-key">
+      <span>Olympique Lyonnais win</span>
+      <span>draw</span>
+      <span>OGC Nice win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Olympique Lyonnais win</span>
+    <span class="score-pred">likely 1–0</span>
+    <span class="conf">60% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to Olympique Lyonnais. Olympique Lyonnais come in on L W D W D form, OGC Nice on W W L D L. Recent meetings: 0W · 1D · 0L (last 6). Model expects roughly 1.92–0.93 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="D">D</span> <span class="L">L</span></div>
+
+      <div class="hv">1.56</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.09</div>
+
+      <div class="hv">1.18</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.76</div>
+
+      <div class="hv">1.92</div>
+      <div class="lbl">model xG</div>
+      <div class="av">0.93</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 6)</span></div>
+      <div class="row"><span>2026-02-15</span><span>Olympique Lyonnais 2–0 OGC Nice</span></div><div class="row"><span>2025-10-18</span><span>OGC Nice 3–2 Olympique Lyonnais</span></div><div class="row"><span>2025-03-09</span><span>OGC Nice 0–2 Olympique Lyonnais</span></div><div class="row"><span>2024-12-01</span><span>Olympique Lyonnais 4–1 OGC Nice</span></div><div class="row"><span>2024-02-16</span><span>Olympique Lyonnais 1–0 OGC Nice</span></div>
+    </div>
+  </details>
+</article>
+<div class="league-head"><img src="https://crests.football-data.org/CL.png" alt=""><h2>UEFA Champions League</h2><div class="rule"></div></div>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 16:45 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/10233.png" alt="" loading="lazy">
+      <div><div class="nm">Sabah FK</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Borussia Dortmund</div>
+      <div class="rk">#17</div></div>
+      <img src="https://crests.football-data.org/4.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:35.3%">35</div>
+      <div class="seg d" style="width:23.9%">24</div>
+      <div class="seg a" style="width:40.8%">41</div>
+    </div>
+    <div class="prob-key">
+      <span>Sabah FK win</span>
+      <span>draw</span>
+      <span>Borussia Dortmund win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Borussia Dortmund win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">41% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Sabah FK come in on W L form, Borussia Dortmund on D L D W W. Recent meetings: No recent meetings. Model expects roughly 1.48–1.61 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="L">L</span> <span class="D">D</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">2.20</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">2.10</div>
+
+      <div class="hv">1.48</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.61</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 16:45 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/613.png" alt="" loading="lazy">
+      <div><div class="nm">Fenerbahçe SK</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">SK Slavia Praha</div>
+      <div class="rk">#34</div></div>
+      <img src="https://crests.football-data.org/930.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:43.3%">43</div>
+      <div class="seg d" style="width:22.3%">22</div>
+      <div class="seg a" style="width:34.4%">34</div>
+    </div>
+    <div class="prob-key">
+      <span>Fenerbahçe SK win</span>
+      <span>draw</span>
+      <span>SK Slavia Praha win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Fenerbahçe SK win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">43% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Fenerbahçe SK come in on L D form, SK Slavia Praha on L L. Recent meetings: No recent meetings. Model expects roughly 1.85–1.63 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">0.62</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">2.38</div>
+
+      <div class="hv">1.85</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.63</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/65.png" alt="" loading="lazy">
+      <div><div class="nm">Manchester City FC</div>
+      <div class="rk">#8</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">PAE AEK</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/1899.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:51.8%">52</div>
+      <div class="seg d" style="width:21.7%">22</div>
+      <div class="seg a" style="width:26.5%">26</div>
+    </div>
+    <div class="prob-key">
+      <span>Manchester City FC win</span>
+      <span>draw</span>
+      <span>PAE AEK win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Manchester City FC win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">52% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans manchester city fc win. Manchester City FC come in on W L W W W form, PAE AEK on L W. Recent meetings: No recent meetings. Model expects roughly 2.0–1.38 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="W">W</span></div>
+
+      <div class="hv">1.60</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.40</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">2.0</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.38</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/10.png" alt="" loading="lazy">
+      <div><div class="nm">VfB Stuttgart</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Club Atlético de Madrid</div>
+      <div class="rk">#14</div></div>
+      <img src="https://crests.football-data.org/78.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:34.7%">35</div>
+      <div class="seg d" style="width:24.3%">24</div>
+      <div class="seg a" style="width:40.9%">41</div>
+    </div>
+    <div class="prob-key">
+      <span>VfB Stuttgart win</span>
+      <span>draw</span>
+      <span>Club Atlético de Madrid win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Club Atlético de Madrid win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">41% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. VfB Stuttgart come in on L W W L L form, Club Atlético de Madrid on W W W W W. Recent meetings: No recent meetings. Model expects roughly 1.42–1.56 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">2.19</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.75</div>
+
+      <div class="hv">1.42</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.56</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/64.png" alt="" loading="lazy">
+      <div><div class="nm">Liverpool FC</div>
+      <div class="rk">#3</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Villarreal CF</div>
+      <div class="rk">#35</div></div>
+      <img src="https://crests.football-data.org/94.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:56.9%">57</div>
+      <div class="seg d" style="width:21.1%">21</div>
+      <div class="seg a" style="width:22.0%">22</div>
+    </div>
+    <div class="prob-key">
+      <span>Liverpool FC win</span>
+      <span>draw</span>
+      <span>Villarreal CF win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Liverpool FC win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">57% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to Liverpool FC. Liverpool FC come in on W W L W D form, Villarreal CF on D W L W W. Recent meetings: 0W · 0D · 0L (last 2). Model expects roughly 2.08–1.22 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="D">D</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">2.00</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">0.62</div>
+
+      <div class="hv">1.08</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">2.25</div>
+
+      <div class="hv">2.08</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.22</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 0D · 0L (last 2)</span></div>
+      <div class="row"><span>2022-05-03</span><span>Villarreal CF 2–3 Liverpool FC</span></div><div class="row"><span>2022-04-27</span><span>Liverpool FC 2–0 Villarreal CF</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/100.png" alt="" loading="lazy">
+      <div><div class="nm">AS Roma</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">ŠK Slovan Bratislava</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/7509.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:65.3%">65</div>
+      <div class="seg d" style="width:18.3%">18</div>
+      <div class="seg a" style="width:16.3%">16</div>
+    </div>
+    <div class="prob-key">
+      <span>AS Roma win</span>
+      <span>draw</span>
+      <span>ŠK Slovan Bratislava win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">AS Roma win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">65% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to AS Roma. AS Roma come in on W L D D W form, ŠK Slovan Bratislava on L L. Recent meetings: No recent meetings. Model expects roughly 2.41–1.12 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="L">L</span> <span class="D">D</span> <span class="D">D</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">2.41</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.12</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/503.png" alt="" loading="lazy">
+      <div><div class="nm">FC Porto</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">PSV</div>
+      <div class="rk">#28</div></div>
+      <img src="https://crests.football-data.org/674.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:44.9%">45</div>
+      <div class="seg d" style="width:22.0%">22</div>
+      <div class="seg a" style="width:33.1%">33</div>
+    </div>
+    <div class="prob-key">
+      <span>FC Porto win</span>
+      <span>draw</span>
+      <span>PSV win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">FC Porto win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">45% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. FC Porto come in on L W W W L form, PSV on L L W L W. Recent meetings: No recent meetings. Model expects roughly 1.92–1.62 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">2.00</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">2.00</div>
+
+      <div class="hv">1.92</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.62</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/113.png" alt="" loading="lazy">
+      <div><div class="nm">SSC Napoli</div>
+      <div class="rk">#30</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">FK Bodø/Glimt</div>
+      <div class="rk">#23</div></div>
+      <img src="https://crests.football-data.org/5721.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:51.6%">52</div>
+      <div class="seg d" style="width:22.7%">23</div>
+      <div class="seg a" style="width:25.7%">26</div>
+    </div>
+    <div class="prob-key">
+      <span>SSC Napoli win</span>
+      <span>draw</span>
+      <span>FK Bodø/Glimt win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">SSC Napoli win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">52% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans ssc napoli win. SSC Napoli come in on L L W D W form, FK Bodø/Glimt on W L. Recent meetings: No recent meetings. Model expects roughly 1.87–1.26 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="L">L</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="L">L</span></div>
+
+      <div class="hv">1.12</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.83</div>
+
+      <div class="hv">1.88</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.83</div>
+
+      <div class="hv">1.87</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.26</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Tue 20 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/524.png" alt="" loading="lazy">
+      <div><div class="nm">Paris Saint-Germain FC</div>
+      <div class="rk">#11</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">FC Barcelona</div>
+      <div class="rk">#5</div></div>
+      <img src="https://crests.football-data.org/81.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:43.6%">44</div>
+      <div class="seg d" style="width:19.4%">19</div>
+      <div class="seg a" style="width:37.0%">37</div>
+    </div>
+    <div class="prob-key">
+      <span>Paris Saint-Germain FC win</span>
+      <span>draw</span>
+      <span>FC Barcelona win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Paris Saint-Germain FC win</span>
+    <span class="score-pred">likely 2–2</span>
+    <span class="conf">44% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Paris Saint-Germain FC come in on W W W W W form, FC Barcelona on W W W W W. Recent meetings: 0W · 1D · 0L (last 5). Model expects roughly 2.42–2.23 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">2.88</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">2.67</div>
+
+      <div class="hv">1.53</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.67</div>
+
+      <div class="hv">2.42</div>
+      <div class="lbl">model xG</div>
+      <div class="av">2.23</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 5)</span></div>
+      <div class="row"><span>2025-10-01</span><span>FC Barcelona 1–2 Paris Saint-Germain FC</span></div><div class="row"><span>2024-04-16</span><span>FC Barcelona 1–4 Paris Saint-Germain FC</span></div><div class="row"><span>2024-04-10</span><span>Paris Saint-Germain FC 2–3 FC Barcelona</span></div><div class="row"><span>2021-03-10</span><span>Paris Saint-Germain FC 1–1 FC Barcelona</span></div><div class="row"><span>2021-02-16</span><span>FC Barcelona 1–4 Paris Saint-Germain FC</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 16:45 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/7397.png" alt="" loading="lazy">
+      <div><div class="nm">Como 1907</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Manchester United FC</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/66.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:43.2%">43</div>
+      <div class="seg d" style="width:24.6%">25</div>
+      <div class="seg a" style="width:32.2%">32</div>
+    </div>
+    <div class="prob-key">
+      <span>Como 1907 win</span>
+      <span>draw</span>
+      <span>Manchester United FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Como 1907 win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">43% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Como 1907 come in on L D L W W form, Manchester United FC on L D D L W. Recent meetings: No recent meetings. Model expects roughly 1.58–1.33 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="D">D</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="D">D</span> <span class="D">D</span> <span class="L">L</span> <span class="W">W</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.58</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.33</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 16:45 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/521.png" alt="" loading="lazy">
+      <div><div class="nm">Lille OSC</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Galatasaray SK</div>
+      <div class="rk">#20</div></div>
+      <img src="https://crests.football-data.org/610.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:55.9%">56</div>
+      <div class="seg d" style="width:21.3%">21</div>
+      <div class="seg a" style="width:22.9%">23</div>
+    </div>
+    <div class="prob-key">
+      <span>Lille OSC win</span>
+      <span>draw</span>
+      <span>Galatasaray SK win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Lille OSC win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">56% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to Lille OSC. Lille OSC come in on D L W L W form, Galatasaray SK on L L. Recent meetings: No recent meetings. Model expects roughly 2.06–1.25 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="D">D</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.42</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.67</div>
+
+      <div class="hv">2.06</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.25</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/86.png" alt="" loading="lazy">
+      <div><div class="nm">Real Madrid CF</div>
+      <div class="rk">#9</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">RB Leipzig</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/721.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:49.4%">49</div>
+      <div class="seg d" style="width:20.9%">21</div>
+      <div class="seg a" style="width:29.7%">30</div>
+    </div>
+    <div class="prob-key">
+      <span>Real Madrid CF win</span>
+      <span>draw</span>
+      <span>RB Leipzig win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Real Madrid CF win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">49% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans real madrid cf win. Real Madrid CF come in on W W L W W form, RB Leipzig on L W W L W. Recent meetings: 0W · 1D · 0L (last 4). Model expects roughly 2.14–1.63 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span></div>
+
+      <div class="hv">2.36</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.43</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">2.14</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.63</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 4)</span></div>
+      <div class="row"><span>2024-03-06</span><span>Real Madrid CF 1–1 RB Leipzig</span></div><div class="row"><span>2024-02-13</span><span>RB Leipzig 0–1 Real Madrid CF</span></div><div class="row"><span>2022-10-25</span><span>RB Leipzig 3–2 Real Madrid CF</span></div><div class="row"><span>2022-09-14</span><span>Real Madrid CF 2–0 RB Leipzig</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/108.png" alt="" loading="lazy">
+      <div><div class="nm">FC Internazionale Milano</div>
+      <div class="rk">#10</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">FK Shakhtar Donetsk</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/1887.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:48.7%">49</div>
+      <div class="seg d" style="width:22.9%">23</div>
+      <div class="seg a" style="width:28.4%">28</div>
+    </div>
+    <div class="prob-key">
+      <span>FC Internazionale Milano win</span>
+      <span>draw</span>
+      <span>FK Shakhtar Donetsk win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">FC Internazionale Milano win</span>
+    <span class="score-pred">likely 1–1</span>
+    <span class="conf">49% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans fc internazionale milano win. FC Internazionale Milano come in on W L W D W form, FK Shakhtar Donetsk on W D. Recent meetings: 0W · 4D · 0L (last 4). Model expects roughly 1.83–1.35 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="D">D</span></div>
+
+      <div class="hv">1.70</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.20</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.83</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.35</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 4D · 0L (last 4)</span></div>
+      <div class="row"><span>2021-11-24</span><span>FC Internazionale Milano 2–0 FK Shakhtar Donetsk</span></div><div class="row"><span>2021-09-28</span><span>FK Shakhtar Donetsk 0–0 FC Internazionale Milano</span></div><div class="row"><span>2020-12-09</span><span>FC Internazionale Milano 0–0 FK Shakhtar Donetsk</span></div><div class="row"><span>2020-10-27</span><span>FK Shakhtar Donetsk 0–0 FC Internazionale Milano</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/5.png" alt="" loading="lazy">
+      <div><div class="nm">FC Bayern München</div>
+      <div class="rk">#2</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Arsenal FC</div>
+      <div class="rk">#1</div></div>
+      <img src="https://crests.football-data.org/57.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:51.5%">52</div>
+      <div class="seg d" style="width:20.3%">20</div>
+      <div class="seg a" style="width:28.2%">28</div>
+    </div>
+    <div class="prob-key">
+      <span>FC Bayern München win</span>
+      <span>draw</span>
+      <span>Arsenal FC win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">FC Bayern München win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">52% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans fc bayern münchen win. FC Bayern München come in on W D D W W form, Arsenal FC on W W L W W. Recent meetings: 0W · 1D · 0L (last 3). Model expects roughly 2.26–1.64 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="D">D</span> <span class="D">D</span> <span class="W">W</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">3.07</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">2.20</div>
+
+      <div class="hv">1.43</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">0.73</div>
+
+      <div class="hv">2.26</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.64</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>0W · 1D · 0L (last 3)</span></div>
+      <div class="row"><span>2025-11-26</span><span>Arsenal FC 3–1 FC Bayern München</span></div><div class="row"><span>2024-04-17</span><span>FC Bayern München 1–0 Arsenal FC</span></div><div class="row"><span>2024-04-09</span><span>Arsenal FC 2–2 FC Bayern München</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/851.png" alt="" loading="lazy">
+      <div><div class="nm">Club Brugge KV</div>
+      <div class="rk">#19</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Racing Club de Lens</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/546.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:42.7%">43</div>
+      <div class="seg d" style="width:20.6%">21</div>
+      <div class="seg a" style="width:36.7%">37</div>
+    </div>
+    <div class="prob-key">
+      <span>Club Brugge KV win</span>
+      <span>draw</span>
+      <span>Racing Club de Lens win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Club Brugge KV win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">43% confidence</span>
+  </div>
+
+  <p class="writeup">A tight one on paper. Club Brugge KV come in on W L form, Racing Club de Lens on W L W L D. Recent meetings: No recent meetings. Model expects roughly 2.12–1.96 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="L">L</span> <span class="W">W</span> <span class="L">L</span> <span class="D">D</span></div>
+
+      <div class="hv">1.90</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">2.40</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">2.12</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.96</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/58.png" alt="" loading="lazy">
+      <div><div class="nm">Aston Villa FC</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Viking FK</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/5720.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:55.1%">55</div>
+      <div class="seg d" style="width:20.2%">20</div>
+      <div class="seg a" style="width:24.7%">25</div>
+    </div>
+    <div class="prob-key">
+      <span>Aston Villa FC win</span>
+      <span>draw</span>
+      <span>Viking FK win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Aston Villa FC win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">55% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to Aston Villa FC. Aston Villa FC come in on W W D W L form, Viking FK on D L. Recent meetings: No recent meetings. Model expects roughly 2.25–1.46 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span> <span class="L">L</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="D">D</span> <span class="L">L</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">2.25</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.46</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/498.png" alt="" loading="lazy">
+      <div><div class="nm">Sporting Clube de Portugal</div>
+      <div class="rk">#7</div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">LASK Linz</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/2016.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:60.9%">61</div>
+      <div class="seg d" style="width:19.2%">19</div>
+      <div class="seg a" style="width:19.9%">20</div>
+    </div>
+    <div class="prob-key">
+      <span>Sporting Clube de Portugal win</span>
+      <span>draw</span>
+      <span>LASK Linz win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Sporting Clube de Portugal win</span>
+    <span class="score-pred">likely 2–1</span>
+    <span class="conf">61% confidence</span>
+  </div>
+
+  <p class="writeup">A clear edge to Sporting Clube de Portugal. Sporting Clube de Portugal come in on W W D D W form, LASK Linz on L L. Recent meetings: No recent meetings. Model expects roughly 2.36–1.29 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="W">W</span> <span class="W">W</span> <span class="D">D</span> <span class="D">D</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="L">L</span> <span class="L">L</span></div>
+
+      <div class="hv">1.83</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.25</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">2.36</div>
+      <div class="lbl">model xG</div>
+      <div class="av">1.29</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+
+<article class="match">
+  <div class="match-top">
+    <span class="kickoff">Wed 21 Oct · 19:00 UTC</span>
+  </div>
+  <div class="teams">
+    <div class="team home">
+      <img src="https://crests.football-data.org/90.png" alt="" loading="lazy">
+      <div><div class="nm">Real Betis Balompié</div>
+      <div class="rk"></div></div>
+    </div>
+    <div class="vs">v</div>
+    <div class="team away">
+      <div><div class="nm">Feyenoord Rotterdam</div>
+      <div class="rk"></div></div>
+      <img src="https://crests.football-data.org/675.png" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <div class="prob">
+    <div class="bar">
+      <div class="seg h" style="width:32.3%">32</div>
+      <div class="seg d" style="width:20.9%">21</div>
+      <div class="seg a" style="width:46.8%">47</div>
+    </div>
+    <div class="prob-key">
+      <span>Real Betis Balompié win</span>
+      <span>draw</span>
+      <span>Feyenoord Rotterdam win</span>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="pick">Feyenoord Rotterdam win</span>
+    <span class="score-pred">likely 1–2</span>
+    <span class="conf">47% confidence</span>
+  </div>
+
+  <p class="writeup">The model leans feyenoord rotterdam win. Real Betis Balompié come in on L W W D W form, Feyenoord Rotterdam on W W W W W. Recent meetings: No recent meetings. Model expects roughly 1.76–2.14 by expected goals.</p>
+
+  <details class="detail">
+    <summary></summary>
+    <div class="statgrid">
+      <div class="hv form-str"><span class="L">L</span> <span class="W">W</span> <span class="W">W</span> <span class="D">D</span> <span class="W">W</span></div>
+      <div class="lbl">form</div>
+      <div class="av form-str"><span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span> <span class="W">W</span></div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">goals/game</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.35</div>
+      <div class="lbl">conceded/g</div>
+      <div class="av">1.35</div>
+
+      <div class="hv">1.76</div>
+      <div class="lbl">model xG</div>
+      <div class="av">2.14</div>
+    </div>
+    <div class="h2h">
+      <div class="row"><span>head-to-head</span><span>No recent meetings</span></div>
+      <div class="row"><span>No recent meetings</span></div>
+    </div>
+  </details>
+</article>
+<footer>Predictions are a transparent Poisson model over form, season rates and head-to-head.<br>
+Not betting advice. Updated daily.</footer>
+</div></body></html>
